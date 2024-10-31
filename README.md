@@ -1,2 +1,2 @@
 # Pathfinding Civilization
-## Beef or Chicken?
+## Beef (A*) or Chicken (Djikstra)?
