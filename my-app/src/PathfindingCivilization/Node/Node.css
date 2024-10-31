@@ -10,9 +10,18 @@
 }
 
 .node-start{
-    background-color: yellow;
+    background-color: green;
 }
 
 .node-visited{
     background-color: blue;
 }
+
+.node-wall{
+    background-color: grey;
+}
+
+.node-shortest-path{
+    background-color: yellow;
+}
+
