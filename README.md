@@ -1,2 +1,2 @@
-# Cypher
-## My eyes can tip the balance.
+# Pathfinding Civilization
+## Beef or Chicken?
