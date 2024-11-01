@@ -91,7 +91,7 @@ export default class PathfindingVisualizer extends Component {
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   render() {

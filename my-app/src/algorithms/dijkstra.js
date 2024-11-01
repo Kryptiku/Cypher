@@ -51,6 +51,7 @@ function getAllNodes(grid){
 
 export function getNodesInShortestPathOrder(finishNode){
     const nodesInShortestPathOrder = [];
+    if (finishNode.distance === Infinity) return nodesInShortestPathOrder;
     let currentNode = finishNode;
     while(currentNode !== null){
         nodesInShortestPathOrder.unshift(currentNode);
