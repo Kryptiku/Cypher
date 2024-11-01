@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Node from "./Node/Node";
 
 import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
+import { aStar } from "../algorithms/aStar";
 
 import "./PathfindingVisualizer.css";
 
@@ -39,7 +40,7 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ mouseIsPressed: false });
   }
 
-  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
@@ -65,13 +66,22 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
+  visualizeAStar() {
+    const { grid } = this.state;
+    const startNode = grid[START_NODE_ROW][START_NODE_COL];
+    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    const visitedNodesInOrder = aStar(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
+  }
+
   visualizeDijkstra() {
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   render() {
@@ -82,16 +92,29 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
         </button>
+        <button onClick={() => this.visualizeAStar()}>
+          Visualize A* Algorithm
+        </button>
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const { isStart, isFinish, row, col, isWall } = node;
+                  const {
+                    isStart,
+                    isFinish,
+                    row,
+                    col,
+                    isWall,
+                    heuristic,
+                    fCost,
+                  } = node;
                   return (
                     <Node
                       key={nodeIdx}
                       col={col}
+                      fCost={fCost}
+                      heuristic={heuristic}
                       isFinish={isFinish}
                       isStart={isStart}
                       isWall={isWall}
@@ -130,6 +153,8 @@ const createNode = (col, row) => {
   return {
     col,
     row,
+    heuristic: 0,
+    fCost: Infinity,
     isStart: row === START_NODE_ROW && col === START_NODE_COL,
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
     distance: Infinity,
