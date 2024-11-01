@@ -1,30 +1,32 @@
 export function bfs(grid, startNode, finishNode) {
     const visitedNodesInOrder = [];
-    const queue = [startNode];
-    startNode.isVisited = true;
+    const queue = []; // Use a queue to manage the nodes to visit
+    startNode.distance = 0; // Initialize distance for the start node
+    queue.push(startNode); // Start from the starting node
+    startNode.isVisited = true; // Mark the start node as visited
 
     while (queue.length) {
-        const currentNode = queue.shift();
-        visitedNodesInOrder.push(currentNode);
+        const currentNode = queue.shift(); // Get the first node in the queue
 
-        // If we reach the target node, return the visited nodes
-        if (currentNode === finishNode) {
-            return visitedNodesInOrder;
-        }
+        // If we encounter a wall, skip
+        if (currentNode.isWall) continue;
+
+        visitedNodesInOrder.push(currentNode); // Mark current node as visited
+        if (currentNode === finishNode) return visitedNodesInOrder; // Stop if we reach the finish node
 
         updateNeighbors(currentNode, grid, queue);
     }
-    return visitedNodesInOrder; // If finishNode is not reached
+
+    return visitedNodesInOrder; // Return the order of visited nodes
 }
 
 function updateNeighbors(node, grid, queue) {
     const neighbors = getUnvisitedNeighbors(node, grid);
     for (const neighbor of neighbors) {
-        // Ensure neighbor is not a wall and not already visited
-        if (!neighbor.isWall) {
-            neighbor.isVisited = true;
-            neighbor.previousNode = node;
-            queue.push(neighbor);
+        if (!neighbor.isVisited && !neighbor.isWall) { // Check for walls
+            neighbor.isVisited = true; // Mark neighbor as visited
+            neighbor.previousNode = node; // Keep track of the path
+            queue.push(neighbor); // Add neighbor to the queue
         }
     }
 }
@@ -33,12 +35,11 @@ function getUnvisitedNeighbors(node, grid) {
     const neighbors = [];
     const { col, row } = node;
 
-    // Check the four possible directions
-    if (row > 0) neighbors.push(grid[row - 1][col]); // Up
-    if (row < grid.length - 1) neighbors.push(grid[row + 1][col]); // Down
-    if (col > 0) neighbors.push(grid[row][col - 1]); // Left
-    if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]); // Right
+    // Check all possible neighbors (up, down, left, right)
+    if (row > 0) neighbors.push(grid[row - 1][col]);
+    if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
+    if (col > 0) neighbors.push(grid[row][col - 1]);
+    if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
 
-    // Filter out already visited nodes
-    return neighbors.filter(neighbor => !neighbor.isVisited);
+    return neighbors.filter(neighbor => !neighbor.isVisited && !neighbor.isWall);
 }

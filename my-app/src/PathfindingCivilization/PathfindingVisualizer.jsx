@@ -113,11 +113,21 @@ export default class PathfindingVisualizer extends Component {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const { isStart, isFinish, row, col, isWall } = node;
+                  const {
+                    isStart,
+                    isFinish,
+                    row,
+                    col,
+                    isWall,
+                    heuristic,
+                    fCost,
+                  } = node;
                   return (
                     <Node
                       key={nodeIdx}
                       col={col}
+                      fCost={fCost}
+                      heuristic={heuristic}
                       isFinish={isFinish}
                       isStart={isStart}
                       isWall={isWall}
@@ -156,6 +166,8 @@ const createNode = (col, row) => {
   return {
     col,
     row,
+    heuristic: 0,
+    fCost: Infinity,
     isStart: row === START_NODE_ROW && col === START_NODE_COL,
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
     distance: Infinity,
