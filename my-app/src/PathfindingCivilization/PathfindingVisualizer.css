@@ -8,13 +8,14 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    color: black;
   }
 
 button.djikstra_button {
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
     margin: 10px;
-    background-size: cover;
+    /* background-size: cover;
     background-position: center;
-    border: none;
+    border: none; */
 }

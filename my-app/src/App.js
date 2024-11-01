@@ -4,8 +4,13 @@ import PathfindingCivilization from './PathfindingCivilization/PathfindingVisual
 
 function App() {
   return (
-    <div className="App">
-      <PathfindingCivilization></PathfindingCivilization>
+    <div class="container">
+      <div id="header">
+        <h1>Pathfinding Civilization</h1>
+      </div>
+      <div class="App">
+        <PathfindingCivilization></PathfindingCivilization>
+      </div>
     </div>
   );
 }

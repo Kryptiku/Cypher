@@ -1,8 +1,10 @@
 .node {
     width: 25px;
     height: 25px;
-    outline: 1px solid rgb(175, 216, 248);
+    outline: 1px solid rgb(23, 23, 23);
     display: inline-block;
+    /* background-image: url("../../assets/node.png");
+    background-size: contain; */
 }
   
 .node-finish {
@@ -48,6 +50,8 @@
   
 .node-wall {
     background-color: rgb(12, 53, 71);
+    background-image: url("../../assets/wall.webp");
+    background-size: contain;
     animation-name: applyWall;
     animation-duration: 0.1s;
     animation-timing-function: ease-out;
