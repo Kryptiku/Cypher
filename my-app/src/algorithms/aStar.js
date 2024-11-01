@@ -6,22 +6,21 @@ export function aStar(grid, startNode, finishNode) {
 
     const unvisitedNodes = getAllNodes(grid);
 
-    while (unvisitedNodes.length) {
+    while (!!unvisitedNodes.length) {
         sortNodesByF(unvisitedNodes);
         const closestNode = unvisitedNodes.shift();
 
         // If we encounter a wall, skip
         if (closestNode.isWall) continue;
 
-        // If the closest node is the target node, stop
-        if (closestNode === finishNode) return visitedNodesInOrder;
-
+        // If closest node is impossible stop
+        if(closestNode.distance === Infinity) return visitedNodesInOrder;
         closestNode.isVisited = true;
         visitedNodesInOrder.push(closestNode);
+        if (closestNode === finishNode) return visitedNodesInOrder;
 
         updateUnvisitedNeighbors(closestNode, grid, finishNode);
     }
-    return visitedNodesInOrder;
 }
 
 function sortNodesByF(unvisitedNodes) {
@@ -66,4 +65,14 @@ function getUnvisitedNeighbors(node, grid){
     if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
 
     return neighbors.filter(neighbor => !neighbor.isVisited);
+}
+
+export function getNodesInShortestPathOrder(finishNode){
+    const nodesInShortestPathOrder = [];
+    let currentNode = finishNode;
+    while(currentNode !== null){
+        nodesInShortestPathOrder.unshift(currentNode);
+        currentNode = currentNode.previousNode;
+    }
+    return nodesInShortestPathOrder;
 }
