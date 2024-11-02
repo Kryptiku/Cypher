@@ -23,23 +23,24 @@ function App() {
   };
 
   return (
-    <div class="container">
+    <div id="container">
       <div id="header">
-        <h1>Pathfinding Civilization</h1>
+        <h1 id="header">Pathfinding Civilization</h1>
       </div>
       <div class="App">
-        {!isCaptchaVerified ? (
-        <div>
-          <h2>Please complete the CAPTCHA</h2>
-          <ReCAPTCHA
-            sitekey={process.env.REACT_APP_SITE_KEY}
-            onChange={handleCaptchaChange}
-            ref={recaptchaRef}
-          />
-        </div>
-      ) : (
-        <PathfindingCivilization />
-      )}
+          {!isCaptchaVerified ? (
+            <div id="captcha">
+              <h2>Please complete the CAPTCHA</h2>
+              <ReCAPTCHA
+                id="captchashadow"
+                sitekey={process.env.REACT_APP_SITE_KEY}
+                onChange={handleCaptchaChange}
+                ref={recaptchaRef}
+              />
+            </div>
+          ) : (
+            <PathfindingCivilization />
+          )}
       </div>
     </div>
   );

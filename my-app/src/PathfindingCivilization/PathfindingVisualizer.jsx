@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Node from "./Node/Node";
-
 import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
 import { aStar } from "../algorithms/aStar";
-
 import "./PathfindingVisualizer.css";
 
 const START_NODE_ROW = 10;
@@ -145,17 +143,20 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <button onClick={() => this.visualizeDijkstra()}>
-          Visualize Dijkstra's Algorithm
-        </button>
-        <button onClick={() => this.visualizeAStar()}>
-          Visualize A* Algorithm
-        </button>
-        <button onClick={() => this.clearGrid(true)}>Clear Grid</button>
-        <button onClick={() => this.clearGrid(false)}>
-          Clear Grid But Keep Walls
-        </button>
-        <h1>Visualize Dijkstra</h1>
+        <div id="controls">
+          <button onClick={() => this.visualizeDijkstra()}>
+            Dijkstra
+          </button>
+          <button onClick={() => this.visualizeAStar()}>
+            A*
+          </button>
+          <button onClick={() => this.clearGrid(true)}>
+            Clear Grid
+          </button>
+          <button onClick={() => this.clearGrid(false)}>
+            Clear Path
+          </button>
+        </div>
 
         <div className="grid">
           {grid.map((row, rowIdx) => {
