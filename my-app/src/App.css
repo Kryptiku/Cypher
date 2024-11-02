@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=VT323&display=swap');
+
 * {
   margin: 0px;
+  font-family: "VT323", "Montserrat", sans-serif;
 }
 
 body {
@@ -9,16 +12,17 @@ body {
 .App {
   text-align: center;
   height: 100vh;
-  /* background-image: url("./assets/bg.png"); */
+  background-image: url("./assets/dirtpattern.png");
+  background-repeat: repeat;
 }
 
 #header {
   height: 90px;
-  background-color: rgb(54, 54, 78);
+  width: 100vw;
+  background-color: #87A330;
   color: white;
   box-sizing: border-box;
   display: flex;
-  width: 100vw;
   justify-content: center;
 }
 
@@ -33,4 +37,5 @@ body {
 
 h1 {
   margin: 20px;
+  font-size: 3rem;
 }

@@ -1,8 +1,10 @@
 .node {
     width: 25px;
     height: 25px;
-    outline: 1px solid rgb(23, 23, 23);
+    outline: 1px solid rgba(0, 0, 0, 0.25);
     display: inline-block;
+    margin: 0px;
+    padding: 0px;
     /* background-image: url("../../assets/node.png");
     background-size: contain; */
 }

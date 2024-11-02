@@ -79,7 +79,7 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <div class="header_container">
+        <div id="controls_container">
           <button className="djikstra_button" onClick={() => this.visualizeDijkstra()}>
           </button>
           <h1>Visualize Djikstra</h1>

@@ -3,7 +3,7 @@
     margin: 5vh
 }
 
-.header_container {
+#controls_container {
     display: flex;
     justify-content: center;
     align-items: center;
