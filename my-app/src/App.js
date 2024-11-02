@@ -23,8 +23,12 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {!isCaptchaVerified ? (
+    <div class="container">
+      <div id="header">
+        <h1>Pathfinding Civilization</h1>
+      </div>
+      <div class="App">
+        {!isCaptchaVerified ? (
         <div>
           <h2>Please complete the CAPTCHA</h2>
           <ReCAPTCHA
@@ -36,6 +40,7 @@ function App() {
       ) : (
         <PathfindingCivilization />
       )}
+      </div>
     </div>
   );
 }
