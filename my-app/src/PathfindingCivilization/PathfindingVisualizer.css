@@ -1,108 +1,21 @@
-.node {
-    width: 25px;
-    height: 25px;
-    outline: 1px solid rgba(0, 0, 0, 0.25);
-    display: inline-block;
-    margin: 0px;
-    padding: 0px;
-    /* background-image: url("../../assets/node.png");
-    background-size: contain; */
-}
-  
-.node-finish {
-    background-color: red;
-}
-  
-.node-start {
-    background-color: green;
-}
-  
-.node-visited {
-    animation-name: visitedAnimation;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-out;
-    animation-delay: 0;
-    animation-direction: alternate;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-play-state: running;
-}
-  
-@keyframes visitedAnimation {
-    0% {
-      transform: scale(0.3);
-      background-color: rgba(0, 0, 66, 0.75);
-      border-radius: 100%;
-    }
-  
-    50% {
-      background-color: rgba(17, 104, 217, 0.75);
-    }
-  
-    75% {
-      transform: scale(1.2);
-      background-color: rgba(0, 217, 159, 0.75);
-    }
-  
-    100% {
-      transform: scale(1);
-      background-color: rgba(0, 190, 218, 0.75);
-    }
-}
-  
-.node-wall {
-    background-color: rgb(12, 53, 71);
-    background-image: url("../../assets/wall.webp");
-    background-size: contain;
-    animation-name: applyWall;
-    animation-duration: 0.1s;
-    animation-timing-function: ease-out;
-    animation-delay: 0;
-    animation-direction: alternate;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-play-state: running;
+
+.grid{
+    margin: 5vh
 }
 
-@keyframes applyWall {
-    0% {
-        transform: scale(0.6);
-    }
-    
-    50% {
-        transform: scale(1.2);
-    }
-    
-    100% {
-        transform: scale(1);
-    }
+#controls_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: black;
+  }
 
-}
-  
-.node-shortest-path {
-    animation-name: shortestPath;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-out;
-    animation-delay: 0;
-    animation-direction: alternate;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-play-state: running;
-}
-  
-@keyframes shortestPath {
-    0% {
-      transform: scale(0.6);
-      background-color: rgb(255, 254, 106);
-    }
-  
-    50% {
-      transform: scale(1.2);
-      background-color: rgb(255, 254, 106);
-    }
-  
-    100% {
-      transform: scale(1);
-      background-color: rgb(255, 254, 106);
-    }
+button.djikstra_button {
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+    /* background-size: cover;
+    background-position: center;
+    border: none; */
 }
