@@ -17,6 +17,7 @@ export default class PathfindingVisualizer extends Component {
     this.state = {
       grid: [],
       mouseIsPressed: false,
+      buttonDisabled: false,
     };
   }
 
@@ -121,6 +122,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   visualizeAStar() {
+    this.setState({ buttonDisabled: true });
     this.clearGrid(false);
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
@@ -128,9 +130,13 @@ export default class PathfindingVisualizer extends Component {
     const visitedNodesInOrder = aStar(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
+    setTimeout(() => {
+      this.setState({ buttonDisabled: false });
+    }, 10 * visitedNodesInOrder.length + 50 * nodesInShortestPathOrder.length);
   }
 
   visualizeDijkstra() {
+    this.setState({ buttonDisabled: true });
     this.clearGrid(false);
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
@@ -138,6 +144,9 @@ export default class PathfindingVisualizer extends Component {
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
+    setTimeout(() => {
+      this.setState({ buttonDisabled: false });
+    }, 10 * visitedNodesInOrder.length + 50 * nodesInShortestPathOrder.length);
   }
 
   render() {
@@ -145,10 +154,16 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <button onClick={() => this.visualizeDijkstra()}>
+        <button
+          onClick={() => this.visualizeDijkstra()}
+          disabled={this.state.buttonDisabled}
+        >
           Visualize Dijkstra's Algorithm
         </button>
-        <button onClick={() => this.visualizeAStar()}>
+        <button
+          onClick={() => this.visualizeAStar()}
+          disabled={this.state.buttonDisabled}
+        >
           Visualize A* Algorithm
         </button>
         <button onClick={() => this.clearGrid(true)}>Clear Grid</button>
