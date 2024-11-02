@@ -25,6 +25,42 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ grid });
   }
 
+  clearGrid() {
+    const { grid } = this.state;
+
+    const newGrid = grid.map((row) =>
+      row.map((node) => {
+        const baseNode = {
+          ...node,
+          isVisited: false,
+          isWall: false,
+          distance: Infinity,
+          previousNode: null,
+          heuristic: 0,
+          fCost: Infinity,
+        };
+
+        return node.isStart || node.isFinish ? baseNode : baseNode;
+      })
+    );
+
+    this.setState({ grid: newGrid });
+
+    // Clearing classes for visited and wall nodes in the DOM
+    newGrid.forEach((row, rowIndex) => {
+      row.forEach((node, colIndex) => {
+        const nodeElement = document.getElementById(
+          `node-${rowIndex}-${colIndex}`
+        );
+        if (nodeElement) {
+          nodeElement.className = `node ${
+            node.isStart ? "node-start" : node.isFinish ? "node-finish" : ""
+          }`.trim();
+        }
+      });
+    });
+  }
+
   handleMouseDown(row, col) {
     const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
     this.setState({ grid: newGrid, mouseIsPressed: true });
@@ -95,6 +131,8 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.visualizeAStar()}>
           Visualize A* Algorithm
         </button>
+        <button onClick={() => this.clearGrid()}>Clear Grid</button>
+
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
