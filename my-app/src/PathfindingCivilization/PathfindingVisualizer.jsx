@@ -168,53 +168,54 @@ export default class PathfindingVisualizer extends Component {
           <button onClick={() => this.clearGrid(true)}>Clear Grid</button>
           <button onClick={() => this.clearGrid(false)}>Clear Path</button>
         </div>
-
-        <div className="grid">
-          {grid.map((row, rowIdx) => {
-            return (
-              <div key={rowIdx}>
-                {row.map((node, nodeIdx) => {
-                  const {
-                    isStart,
-                    isFinish,
-                    row,
-                    col,
-                    isWall,
-                    heuristic,
-                    fCost,
-                  } = node;
-                  return (
-                    <Node
-                      key={nodeIdx}
-                      col={col}
-                      fCost={fCost}
-                      heuristic={heuristic}
-                      isFinish={isFinish}
-                      isStart={isStart}
-                      isWall={isWall}
-                      mouseIsPressed={mouseIsPressed}
-                      onMouseDown={(row, col) => {
-                        if (!isStart && !isFinish) {
-                          this.handleMouseDown(row, col);
-                        }
-                      }}
-                      onMouseEnter={(row, col) => {
-                        if (!isStart && !isFinish && mouseIsPressed) {
-                          this.handleMouseEnter(row, col);
-                        }
-                      }}
-                      onMouseUp={() => {
-                        if (!isStart && !isFinish) {
-                          this.handleMouseUp();
-                        }
-                      }}
-                      row={row}
-                    ></Node>
-                  );
-                })}
-              </div>
-            );
-          })}
+        <div id="gridcontainer">
+          <div className="grid">
+            {grid.map((row, rowIdx) => {
+              return (
+                <div key={rowIdx}>
+                  {row.map((node, nodeIdx) => {
+                    const {
+                      isStart,
+                      isFinish,
+                      row,
+                      col,
+                      isWall,
+                      heuristic,
+                      fCost,
+                    } = node;
+                    return (
+                      <Node
+                        key={nodeIdx}
+                        col={col}
+                        fCost={fCost}
+                        heuristic={heuristic}
+                        isFinish={isFinish}
+                        isStart={isStart}
+                        isWall={isWall}
+                        mouseIsPressed={mouseIsPressed}
+                        onMouseDown={(row, col) => {
+                          if (!isStart && !isFinish) {
+                            this.handleMouseDown(row, col);
+                          }
+                        }}
+                        onMouseEnter={(row, col) => {
+                          if (!isStart && !isFinish && mouseIsPressed) {
+                            this.handleMouseEnter(row, col);
+                          }
+                        }}
+                        onMouseUp={() => {
+                          if (!isStart && !isFinish) {
+                            this.handleMouseUp();
+                          }
+                        }}
+                        row={row}
+                      ></Node>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </>
     );
