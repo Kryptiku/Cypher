@@ -11,14 +11,10 @@
   
 .node-finish {
     background-color: red;
-    cursor: not-allowed;
 }
   
 .node-start {
     background-color: green;
-    background-image: url(../../assets/start_steve.webp);
-    background-size: contain;
-    cursor: not-allowed; 
 }
   
 .node-visited {
@@ -58,17 +54,17 @@
     background-color: rgb(12, 53, 71);
     background-image: url("../../assets/wall.webp");
     background-size: contain;
-    /* animation-name: applyWall;
+    animation-name: applyWall;
     animation-duration: 0.1s;
     animation-timing-function: ease-out;
     animation-delay: 0;
     animation-direction: alternate;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    animation-play-state: running; */
+    animation-play-state: running;
 }
 
-/* @keyframes applyWall {
+@keyframes applyWall {
     0% {
         transform: scale(0.6);
     }
@@ -81,7 +77,7 @@
         transform: scale(1);
     }
 
-} */
+}
   
 .node-shortest-path {
     animation-name: shortestPath;
