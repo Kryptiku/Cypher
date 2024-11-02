@@ -1,3 +1,21 @@
+
 .grid{
-    margin: 100px 0 0;
+    margin: 5vh
+}
+
+#controls_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: black;
+  }
+
+button.djikstra_button {
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+    /* background-size: cover;
+    background-position: center;
+    border: none; */
 }
