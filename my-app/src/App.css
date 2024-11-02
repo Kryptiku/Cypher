@@ -3,21 +3,28 @@
 * {
   margin: 0px;
   font-family: "VT323", "Montserrat", sans-serif;
+  color: white;
 }
 
 body {
   margin: 0px;
   padding: 0px;
-}
-.App {
-  text-align: center;
   height: 100vh;
   background-image: url("./assets/dirtpattern.png");
   background-repeat: repeat;
 }
 
-#header {
-  height: 90px;
+#container {
+  margin: 0px;
+  padding: 0px;
+}
+
+.App {
+  text-align: center;
+}
+
+div#header {
+  height: 70px;
   width: 100vw;
   background-color: #87A330;
   color: white;
@@ -26,16 +33,39 @@ body {
   justify-content: center;
 }
 
-.container {
-  margin: 0px;
-  padding: 0px;
+
+h1#header {
+  margin: 10px;
+  font-size: 3rem;
+  text-shadow: 0px 0px 15px rgba(0,0,0,0.6);
+  position: absolute;
 }
 
-/* <div id="header">
-        <h1>PathfindingCivilization</h1>
-</div> */
 
-h1 {
-  margin: 20px;
-  font-size: 3rem;
+h2 {
+  margin: 1.2rem;
+  color: white;
+  text-shadow: 0px 0px 15px rgba(0,0,0,0.6);
+}
+
+#captcha {
+  margin: 0;
+  height: 400px;
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #87A330;
+  box-shadow: 0px 0px 50px rgba(0,0,0,0.6) ;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#captchashadow {
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.6)
 }
