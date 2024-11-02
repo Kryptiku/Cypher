@@ -25,7 +25,7 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ grid });
   }
 
-  clearGrid() {
+  clearGrid(alsoWall) {
     const { grid } = this.state;
 
     const newGrid = grid.map((row) =>
@@ -40,6 +40,10 @@ export default class PathfindingVisualizer extends Component {
           fCost: Infinity,
         };
 
+        if (!alsoWall && node.isWall) {
+          baseNode.isWall = true;
+        }
+
         return node.isStart || node.isFinish ? baseNode : baseNode;
       })
     );
@@ -53,9 +57,23 @@ export default class PathfindingVisualizer extends Component {
           `node-${rowIndex}-${colIndex}`
         );
         if (nodeElement) {
-          nodeElement.className = `node ${
-            node.isStart ? "node-start" : node.isFinish ? "node-finish" : ""
-          }`.trim();
+          if (alsoWall) {
+            // If alsoWall is true, clear all node types including walls
+            nodeElement.className = `node ${
+              node.isStart ? "node-start" : node.isFinish ? "node-finish" : ""
+            }`.trim();
+          } else {
+            // If alsoWall is false, keep the wall nodes
+            nodeElement.className = `node ${
+              node.isStart
+                ? "node-start"
+                : node.isFinish
+                ? "node-finish"
+                : node.isWall
+                ? "node-wall"
+                : ""
+            }`.trim();
+          }
         }
       });
     });
@@ -103,7 +121,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   visualizeAStar() {
-    this.clearGrid();
+    this.clearGrid(false);
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
@@ -113,7 +131,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   visualizeDijkstra() {
-    this.clearGrid();
+    this.clearGrid(false);
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
@@ -133,7 +151,10 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.visualizeAStar()}>
           Visualize A* Algorithm
         </button>
-        <button onClick={() => this.clearGrid()}>Clear Grid</button>
+        <button onClick={() => this.clearGrid(true)}>Clear Grid</button>
+        <button onClick={() => this.clearGrid(false)}>
+          Clear Grid But Keep Walls
+        </button>
         <h1>Visualize Dijkstra</h1>
 
         <div className="grid">
