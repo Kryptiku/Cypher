@@ -1,7 +1,15 @@
-
 .grid{
-    margin: 0;
-    padding: 0;
+    /* margin-top: 50px; */
+    height: 525px;
+    width: 1275px;
+    position: relative;
+    background-color: #87A330;
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.6) ;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #controls {
@@ -11,31 +19,20 @@
     align-items: center;
     flex-wrap: nowrap;
     gap: 10px;
-    color: black;
-    /* background-color: darkblue; */
 }
 
 button {
     height: 50px;
-    background-color: rgba(0,0,0,0);
+    background-color: #87A330;
     border-color: rgba(0,0,0,0);
     font-size: larger;
+    width: 200px;
 }
 
 #gridcontainer {
-    margin: 0;
-    height: 525px;
-    width: 1275px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    background-color: #87A330;
-    box-shadow: 0px 0px 50px rgba(0,0,0,0.6) ;
-    border-radius: 20px;
+    height: auto;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
