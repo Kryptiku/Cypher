@@ -1,0 +1,60 @@
+// entire dropdown
+.rw-dropdown-list {
+    width: auto;
+    border-radius: 10px;
+    padding: 5px;
+    color: #000000;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+// dropdown text on textbox
+.rw-dropdown-list-value {
+    color: rgb(251, 251, 251);
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+// entire dropdown textbox thing
+.rw-widget-container {
+    background-color: #6b7e31;
+    // box-shadow: 0 0 15px rgba(0, 0, 0, 0.5) inset;
+}
+
+// the arrow clickable thingy
+span.rw-picker-caret {
+  background-color: #87A330;
+}
+  
+// style for the dropdown options container
+.rw-popup {
+    background-color: #a96f24;
+    border-radius: 5px;
+    padding: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+  
+// style for each option in the dropdown
+.rw-list-option {
+    padding: 10px;
+    cursor: pointer;
+    color: #fcfcfc; // font color inside dropdown options
+    transition: 0.2s ease;
+    transform: scale();
+  
+    &:hover {
+      background-color: #6b7e31; // highlight on hover
+      outline-color: #000000;
+      transform: scale();
+    }
+  
+    &.rw-state-selected {
+      background-color: #87A330; // selected state for options
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+  }
+
+  

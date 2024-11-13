@@ -1,28 +1,40 @@
 import React, { Component } from "react";
+import Howler from 'react-howler';
+import DropdownList from "react-widgets/DropdownList";
 import Node from "./Node/Node";
 import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
 import { aStar } from "../algorithms/aStar";
 import "./PathfindingVisualizer.css";
+import "react-widgets/styles.css";
+import './DropdownList.scss';
+import BgMusic from '../assets/Sweden.mp3';
+import MusicOnIcon from '../assets/musicon.png';
+import MusicOffIcon from '../assets/musicoff.png';
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
 const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COL = 35;
+const algorithms = ['Dijkstra', 'A*'];
+
 
 export default class PathfindingVisualizer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       grid: [],
       mouseIsPressed: false,
       buttonDisabled: false,
+      selectedAlgorithm: null,
+      isDropdownOpen: false, // state to control dropdown visibility
+      isPlaying: true
     };
   }
 
-  componentDidMount() {
-    const grid = getInitialGrid();
-    this.setState({ grid });
-  }
+    componentDidMount() {
+      const grid = getInitialGrid();
+      this.setState({ grid });
+    }
 
   clearGrid(alsoWall) {
     const { grid } = this.state;
@@ -49,7 +61,6 @@ export default class PathfindingVisualizer extends Component {
 
     this.setState({ grid: newGrid });
 
-    // Clearing classes for visited and wall nodes in the DOM
     newGrid.forEach((row, rowIndex) => {
       row.forEach((node, colIndex) => {
         const nodeElement = document.getElementById(
@@ -57,12 +68,10 @@ export default class PathfindingVisualizer extends Component {
         );
         if (nodeElement) {
           if (alsoWall) {
-            // If alsoWall is true, clear all node types including walls
             nodeElement.className = `node ${
               node.isStart ? "node-start" : node.isFinish ? "node-finish" : ""
             }`.trim();
           } else {
-            // If alsoWall is false, keep the wall nodes
             nodeElement.className = `node ${
               node.isStart
                 ? "node-start"
@@ -119,6 +128,23 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
+  visualize(algorithm) {
+    switch (algorithm) {
+      case 'A*':
+        {
+          this.visualizeAStar();
+          break;
+        }
+      case 'Dijkstra':
+        {
+          this.visualizeDijkstra();
+          break;
+        }
+      default:
+        return <p></p>
+    }
+  }
+
   visualizeAStar() {
     this.setState({ buttonDisabled: true });
     this.clearGrid(false);
@@ -147,26 +173,107 @@ export default class PathfindingVisualizer extends Component {
     }, 10 * visitedNodesInOrder.length + 50 * nodesInShortestPathOrder.length);
   }
 
+  getAlgorithmDescription = (algorithm) => {
+    switch (algorithm) {
+      case 'A*':
+        return (
+          <div>
+            <h1 class="sign">A* Algorithm</h1>
+            <p class="sign">A* uses heuristics to find the shortest path efficiently.</p>
+          </div>
+        );
+      case 'Dijkstra':
+        return (
+          <div>
+            <h1 class="sign">Dijkstra's Algorithm</h1>
+            <p class="sign">Dijkstra's algorithm explores all possible paths to find the shortest one.</p>
+          </div>
+        );
+      default:
+        return <h1 class="sign">Pick an Algorithm:</h1>;
+    }
+  };
+
+  handleChange = (value) => {
+    this.setState({ selectedAlgorithm: value, isDropdownOpen: false });  // passes value to selectedAlgorithm and makes sure dropdown closes
+  };
+  
+
+  handleDropdownToggle = () => {
+    this.setState((prevState) => ({
+      isDropdownOpen: !prevState.isDropdownOpen, // toggle dropdownlist visibility
+    }));
+  };
+
+  handleClickOutside = (event) => {
+    const dropdownList = document.getElementById('dropdown-list');
+    if (dropdownList && !dropdownList.contains(event.target)) {
+      this.setState({ isDropdownOpen: false }); // close dropdownlist if clicking outside
+    }
+  };
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.isDropdownOpen !== this.state.isDropdownOpen) {
+      // Add or remove event listener to detect outside click
+      if (this.state.isDropdownOpen) {
+        document.addEventListener('click', this.handleClickOutside);
+      } else {
+        document.removeEventListener('click', this.handleClickOutside);
+      }
+    }
+    const dropdownToggle = document.querySelector('.rw-dropdown-toggle');
+    if (dropdownToggle) {
+      dropdownToggle.removeAttribute('aria-hidden');
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
+  }
+
+  toggleMusic = () => {
+    this.setState((prevState) => ({
+      isPlaying: !prevState.isPlaying, // toggles music on or off
+    }));
+  };
+
   render() {
-    const { grid, mouseIsPressed } = this.state;
+    const { grid, mouseIsPressed, selectedAlgorithm, isDropdownOpen, isPlaying } = this.state;
 
     return (
       <>
         <div id="controls">
+          <div id="dropdown-container">
+            <DropdownList
+              id="dropdown-list"
+              data={algorithms}
+              value={selectedAlgorithm || "Algorithms:"}
+              onChange={this.handleChange}  
+              open={isDropdownOpen}
+              onToggle={this.handleDropdownToggle} // toggle dropdown visibility manually
+            />
+          </div>
           <button
-            onClick={() => this.visualizeDijkstra()}
+            onClick={() => this.visualize(selectedAlgorithm)}
             disabled={this.state.buttonDisabled}
           >
-            Dijkstra
-          </button>
-          <button
-            onClick={() => this.visualizeAStar()}
-            disabled={this.state.buttonDisabled}
-          >
-            A*
+            Visualize {selectedAlgorithm}
           </button>
           <button onClick={() => this.clearGrid(true)}>Clear Grid</button>
           <button onClick={() => this.clearGrid(false)}>Clear Path</button>
+          <button onClick={this.toggleMusic}>
+            <img
+              src={isPlaying ? MusicOnIcon : MusicOffIcon}
+              alt={isPlaying ? 'Music On' : 'Music Off'}
+              style={{ width: '24px', height: '24px' }}
+            />
+          </button>
+          <Howler src={BgMusic} playing={isPlaying} loop />
+        </div>
+        <div id="algo_description_container">
+          <div id="algo_description">
+            {this.getAlgorithmDescription(selectedAlgorithm)}
+          </div>
         </div>
         <div id="gridcontainer">
           <div className="grid">
@@ -199,17 +306,13 @@ export default class PathfindingVisualizer extends Component {
                           }
                         }}
                         onMouseEnter={(row, col) => {
-                          if (!isStart && !isFinish && mouseIsPressed) {
+                          if (!isStart && !isFinish) {
                             this.handleMouseEnter(row, col);
                           }
                         }}
-                        onMouseUp={() => {
-                          if (!isStart && !isFinish) {
-                            this.handleMouseUp();
-                          }
-                        }}
+                        onMouseUp={() => this.handleMouseUp()}
                         row={row}
-                      ></Node>
+                      />
                     );
                   })}
                 </div>
@@ -227,25 +330,25 @@ const getInitialGrid = () => {
   for (let row = 0; row < 20; row++) {
     const currentRow = [];
     for (let col = 0; col < 50; col++) {
-      currentRow.push(createNode(col, row));
+      currentRow.push(createNode(row, col));
     }
     grid.push(currentRow);
   }
   return grid;
 };
 
-const createNode = (col, row) => {
+const createNode = (row, col) => {
   return {
-    col,
     row,
-    heuristic: 0,
-    fCost: Infinity,
+    col,
     isStart: row === START_NODE_ROW && col === START_NODE_COL,
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
+    isWall: false,
     distance: Infinity,
     isVisited: false,
-    isWall: false,
     previousNode: null,
+    heuristic: 0,
+    fCost: Infinity,
   };
 };
 

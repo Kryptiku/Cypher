@@ -1,3 +1,9 @@
+code {
+    border-radius: 0.1rem;
+    box-shadow: 0 0.5rem 1rem rgba(34, 34, 34, 0.15);
+}
+  
+
 .grid{
     /* margin-top: 50px; */
     height: 525px;
@@ -27,12 +33,49 @@ button {
     border-color: rgba(0,0,0,0);
     font-size: larger;
     width: 200px;
+    box-shadow: 0 11px 10px rgba(0,0,0,0.6);
+    text-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
 #gridcontainer {
     height: auto;
-    margin-top: 50px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#algo_description {
+    margin-top: 20px;
+    padding: 20px;
+    height: 80px;
+    width: 500px;
+    background-image: url(../assets/oaksign.webp);
+    background-size: contain;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+#algo_description_container {
+    display:flex;
+    width: 100vw;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+#dropdown-container {
+    width: 200px;
+    background-color: #87A330;
+    padding: 10px;
+    overflow: visible;
+    box-shadow: 0 11px 10px rgba(0,0,0,0.6)
+}
+
+h1.sign {
+    padding: 6px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+p.sign {
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
