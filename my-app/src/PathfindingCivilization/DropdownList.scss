@@ -24,12 +24,12 @@
 
 // the arrow clickable thingy
 span.rw-picker-caret {
-  background-color: #87A330;
+  background-color: #87A330; //custom green
 }
   
 // style for the dropdown options container
 .rw-popup {
-    background-color: #a96f24;
+    background-color: #A0642C; //dirt brown
     border-radius: 5px;
     padding: 5px;
     max-height: 200px;
@@ -45,13 +45,13 @@ span.rw-picker-caret {
     transform: scale();
   
     &:hover {
-      background-color: #6b7e31; // highlight on hover
+      background-color: #6b7e31; // highlight, darker green
       outline-color: #000000;
       transform: scale();
     }
   
     &.rw-state-selected {
-      background-color: #87A330; // selected state for options
+      background-color: #87A330; // //highlight, custom green
       font-weight: bold;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }

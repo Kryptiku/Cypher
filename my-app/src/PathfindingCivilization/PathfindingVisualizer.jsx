@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Howler from 'react-howler';
+import { Howl } from 'howler';
 import DropdownList from "react-widgets/DropdownList";
 import Node from "./Node/Node";
 import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
@@ -10,13 +11,14 @@ import './DropdownList.scss';
 import BgMusic from '../assets/Sweden.mp3';
 import MusicOnIcon from '../assets/musicon.png';
 import MusicOffIcon from '../assets/musicoff.png';
+import PlaceWallSound from '../assets/Stone_dig1.ogg';
+import BreakSound from '../assets/Random_break.ogg';
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
 const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COL = 35;
 const algorithms = ['Dijkstra', 'A*'];
-
 
 export default class PathfindingVisualizer extends Component {
   constructor(props) {
@@ -26,8 +28,8 @@ export default class PathfindingVisualizer extends Component {
       mouseIsPressed: false,
       buttonDisabled: false,
       selectedAlgorithm: null,
-      isDropdownOpen: false, // state to control dropdown visibility
-      isPlaying: true
+      isDropdownOpen: false,
+      isMusicPlaying: false,
     };
   }
 
@@ -87,20 +89,38 @@ export default class PathfindingVisualizer extends Component {
     });
   }
 
+  playClearSound = () => {
+    const clearSound = new Howl({
+      src: [BreakSound],
+      volume: 1,
+    });
+    clearSound.play();
+  }
+
   handleMouseDown(row, col) {
     const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
     this.setState({ grid: newGrid, mouseIsPressed: true });
+    this.playWallSound();
   }
 
   handleMouseEnter(row, col) {
     if (!this.state.mouseIsPressed) return;
     const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
     this.setState({ grid: newGrid });
+    this.playWallSound();
   }
 
   handleMouseUp() {
     this.setState({ mouseIsPressed: false });
   }
+
+  playWallSound = () => {
+    const wallSound = new Howl({
+      src: [PlaceWallSound],
+      volume: 1,
+    });
+    wallSound.play();
+  };
 
   animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
@@ -115,6 +135,7 @@ export default class PathfindingVisualizer extends Component {
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
       }, 10 * i);
+      this.setState({isAlgoRunning: false})
     }
   }
 
@@ -129,45 +150,41 @@ export default class PathfindingVisualizer extends Component {
   }
 
   visualize(algorithm) {
+    const { selectedAlgorithm } = this.state;
+
+    if (!selectedAlgorithm) {
+      const descriptionElement = document.getElementById('algo_description');
+      if (descriptionElement) {
+        descriptionElement.classList.add('shake');
+        setTimeout(() => {
+          descriptionElement.classList.remove('shake');
+        }, 300);
+      }
+      return;
+    }
+
+    this.setState({ buttonDisabled: true });
+    this.clearGrid(false);
+    
+    const { grid } = this.state;
+    const startNode = grid[START_NODE_ROW][START_NODE_COL];
+    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    let visitedNodesInOrder;
+    
     switch (algorithm) {
       case 'A*':
-        {
-          this.visualizeAStar();
-          break;
-        }
+        visitedNodesInOrder = aStar(grid, startNode, finishNode);
+        break;
       case 'Dijkstra':
-        {
-          this.visualizeDijkstra();
-          break;
-        }
+        visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+        break;
       default:
-        return <p></p>
+        return;
     }
-  }
-
-  visualizeAStar() {
-    this.setState({ buttonDisabled: true });
-    this.clearGrid(false);
-    const { grid } = this.state;
-    const startNode = grid[START_NODE_ROW][START_NODE_COL];
-    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = aStar(grid, startNode, finishNode);
+  
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
-    setTimeout(() => {
-      this.setState({ buttonDisabled: false });
-    }, 10 * visitedNodesInOrder.length + 50 * nodesInShortestPathOrder.length);
-  }
-
-  visualizeDijkstra() {
-    this.setState({ buttonDisabled: true });
-    this.clearGrid(false);
-    const { grid } = this.state;
-    const startNode = grid[START_NODE_ROW][START_NODE_COL];
-    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
+    
     setTimeout(() => {
       this.setState({ buttonDisabled: false });
     }, 10 * visitedNodesInOrder.length + 50 * nodesInShortestPathOrder.length);
@@ -208,13 +225,14 @@ export default class PathfindingVisualizer extends Component {
   handleClickOutside = (event) => {
     const dropdownList = document.getElementById('dropdown-list');
     if (dropdownList && !dropdownList.contains(event.target)) {
-      this.setState({ isDropdownOpen: false }); // close dropdownlist if clicking outside
+      this.setState({ isDropdownOpen: false });   // close dropdownlist if clicking outside
     }
   };
 
   componentDidUpdate(_, prevState) {
     if (prevState.isDropdownOpen !== this.state.isDropdownOpen) {
-      // Add or remove event listener to detect outside click
+
+      // detect outside click
       if (this.state.isDropdownOpen) {
         document.addEventListener('click', this.handleClickOutside);
       } else {
@@ -233,12 +251,18 @@ export default class PathfindingVisualizer extends Component {
 
   toggleMusic = () => {
     this.setState((prevState) => ({
-      isPlaying: !prevState.isPlaying, // toggles music on or off
+      isMusicPlaying: !prevState.isMusicPlaying,
     }));
   };
 
   render() {
-    const { grid, mouseIsPressed, selectedAlgorithm, isDropdownOpen, isPlaying } = this.state;
+    const {
+      grid,
+      mouseIsPressed, 
+      selectedAlgorithm, 
+      isDropdownOpen, 
+      isMusicPlaying 
+    } = this.state;
 
     return (
       <>
@@ -255,20 +279,42 @@ export default class PathfindingVisualizer extends Component {
           </div>
           <button
             onClick={() => this.visualize(selectedAlgorithm)}
-            disabled={this.state.buttonDisabled}
+            style={{
+              backgroundColor: this.state.buttonDisabled ? 'red' : '#87A330',
+              cursor: this.state.buttonDisabled ? 'not-allowed' : 'pointer'
+            }}
+            disabled = {this.state.buttonDisabled}
           >
             Visualize {selectedAlgorithm}
           </button>
-          <button onClick={() => this.clearGrid(true)}>Clear Grid</button>
-          <button onClick={() => this.clearGrid(false)}>Clear Path</button>
+          <button 
+            onClick={() => {
+              this.playClearSound();
+              this.clearGrid(true);
+            }}
+            style={{
+              cursor: this.state.buttonDisabled ? 'not-allowed' : 'pointer'
+            }}
+            disabled = {this.state.buttonDisabled}
+          >Clear Grid</button>
+          <button 
+            onClick={() => {
+              this.playClearSound();  // Call function to play sound
+              this.clearGrid(false);   // Call function to clear the grid
+            }}
+            style={{
+              cursor: this.state.buttonDisabled ? 'not-allowed' : 'pointer'
+            }}
+            disabled = {this.state.buttonDisabled}
+          >Clear Path</button>
           <button onClick={this.toggleMusic}>
             <img
-              src={isPlaying ? MusicOnIcon : MusicOffIcon}
-              alt={isPlaying ? 'Music On' : 'Music Off'}
+              src={isMusicPlaying ? MusicOnIcon : MusicOffIcon}
+              alt={isMusicPlaying ? 'Music On' : 'Music Off'}
               style={{ width: '24px', height: '24px' }}
             />
           </button>
-          <Howler src={BgMusic} playing={isPlaying} loop />
+          <Howler src={BgMusic} playing={isMusicPlaying} volume={1} loop />
         </div>
         <div id="algo_description_container">
           <div id="algo_description">
