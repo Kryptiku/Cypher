@@ -18,7 +18,7 @@ const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
 const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COL = 35;
-const algorithms = ['Dijkstra', 'A*'];
+const algorithms = ['Dijkstra', 'A*']; // add options if adding algos
 
 export default class PathfindingVisualizer extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ export default class PathfindingVisualizer extends Component {
       buttonDisabled: false,
       selectedAlgorithm: null,
       isDropdownOpen: false,
-      isMusicPlaying: false,
+      isMusicPlaying: false, // dont forget to turn on, was just annoying replaying over and over
     };
   }
 
@@ -171,6 +171,7 @@ export default class PathfindingVisualizer extends Component {
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     let visitedNodesInOrder;
     
+    // just add new algos under dijkstra
     switch (algorithm) {
       case 'A*':
         visitedNodesInOrder = aStar(grid, startNode, finishNode);
@@ -191,6 +192,8 @@ export default class PathfindingVisualizer extends Component {
   }
 
   getAlgorithmDescription = (algorithm) => {
+
+    // add the brief descriptions here for new algos
     switch (algorithm) {
       case 'A*':
         return (
@@ -212,13 +215,13 @@ export default class PathfindingVisualizer extends Component {
   };
 
   handleChange = (value) => {
-    this.setState({ selectedAlgorithm: value, isDropdownOpen: false });  // passes value to selectedAlgorithm and makes sure dropdown closes
+    this.setState({ selectedAlgorithm: value, isDropdownOpen: false });
   };
   
 
-  handleDropdownToggle = () => {
+  toggleDropdown = () => {
     this.setState((prevState) => ({
-      isDropdownOpen: !prevState.isDropdownOpen, // toggle dropdownlist visibility
+      isDropdownOpen: !prevState.isDropdownOpen,
     }));
   };
 
@@ -274,7 +277,7 @@ export default class PathfindingVisualizer extends Component {
               value={selectedAlgorithm || "Algorithms:"}
               onChange={this.handleChange}  
               open={isDropdownOpen}
-              onToggle={this.handleDropdownToggle} // toggle dropdown visibility manually
+              onToggle={this.toggleDropdown} // toggle dropdown visibility manually
             />
           </div>
           <button
@@ -299,8 +302,8 @@ export default class PathfindingVisualizer extends Component {
           >Clear Grid</button>
           <button 
             onClick={() => {
-              this.playClearSound();  // Call function to play sound
-              this.clearGrid(false);   // Call function to clear the grid
+              this.playClearSound();
+              this.clearGrid(false);
             }}
             style={{
               cursor: this.state.buttonDisabled ? 'not-allowed' : 'pointer'
