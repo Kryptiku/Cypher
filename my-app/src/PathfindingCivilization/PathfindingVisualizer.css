@@ -50,7 +50,6 @@ button {
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-  
 #algo_description.shake {
     animation: shake 0.3s ease;
 }

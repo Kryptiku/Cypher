@@ -8,11 +8,25 @@ import { aStar } from "../algorithms/aStar";
 import "./PathfindingVisualizer.css";
 import "react-widgets/styles.css";
 import './DropdownList.scss';
-import BgMusic from '../assets/Sweden.mp3';
+import BgMusic from '../assets/sounds/Sweden.mp3';
 import MusicOnIcon from '../assets/musicon.png';
 import MusicOffIcon from '../assets/musicoff.png';
-import PlaceWallSound from '../assets/Stone_dig1.ogg';
-import BreakSound from '../assets/Random_break.ogg';
+import PlaceWallSound1 from '../assets/sounds/Stone_dig1.ogg';
+import PlaceWallSound2 from '../assets/sounds/Stone_dig2.ogg';
+import PlaceWallSound3 from '../assets/sounds/Stone_dig2shifted.ogg';
+import PlaceWallSound4 from '../assets/sounds/Stone_dig3.ogg';
+import PlaceWallSound5 from '../assets/sounds/Stone_dig4.ogg';
+import BreakSound from '../assets/sounds/Random_break.ogg';
+import DenySound from '../assets/sounds/Villager_deny1.oga'
+import RunningSound from '../assets/sounds/Beacon_ambient.ogg'
+import StartSound1 from '../assets/sounds/Beacon_power1.ogg'
+import StartSound2 from '../assets/sounds/Beacon_power2.ogg'
+import ClickSound from '../assets/sounds/Click.ogg';
+import CloseDropdownSound from '../assets/sounds/Chest_close2.ogg';
+import ShortestFoundSound1 from '../assets/sounds/Successful_hit.oga';
+import FinishSound from '../assets/sounds/XP_Old.oga';
+
+// when adding algos, just search 'algos' for requirements
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -92,9 +106,80 @@ export default class PathfindingVisualizer extends Component {
   playClearSound = () => {
     const clearSound = new Howl({
       src: [BreakSound],
-      volume: 1,
+      volume: 0.3,
     });
     clearSound.play();
+  }
+
+  playWallSound = () => {
+    const wallSound1 = new Howl({src: [PlaceWallSound1]});
+    const wallSound2 = new Howl({src: [PlaceWallSound2]});
+    const wallSound3 = new Howl({src: [PlaceWallSound3]});
+    const wallSound4 = new Howl({src: [PlaceWallSound4]});
+    const wallSound5 = new Howl({src: [PlaceWallSound5]});
+
+    let num = Math.floor(Math.random()* (5 - 1 + 1)) + 1;
+
+    switch(num)           // random wall sounds
+      {
+        case 1:
+          wallSound1.play();
+          break;
+        case 2:
+          wallSound2.play();
+          break;
+        case 3:
+          wallSound3.play();
+          break;
+        case 4:
+          wallSound4.play();
+          break;
+        case 5:
+          wallSound5.play();
+          break;
+      };
+  };
+
+  playDenySound = () => {
+    const denysound = new Howl({src: [DenySound]});
+    denysound.play();
+  }
+
+  playStartSound = () => {
+    const startsound1 = new Howl({src: [StartSound1]});
+    const startsound2 = new Howl({src: [StartSound2]});
+
+    let num = Math.floor(Math.random()* (2 - 1 + 1)) + 1;
+
+    switch(num)
+    {
+      case 1:
+        startsound1.play();
+        break;
+      case 2:
+        startsound2.play();
+        break;
+    };
+  }
+
+  playClickSound = () => {
+    const clicksound = new Howl({src: [ClickSound]});
+    clicksound.play();
+  }
+ 
+  playCloseDropdownSound = () => {
+    const closedropdownsound = new Howl ({src: [CloseDropdownSound]})
+    closedropdownsound.play();
+  }
+
+  playShortestFoundSound1 = () => {
+    const shortestfoundsound = new Howl({src: [ShortestFoundSound1], volume: 0.2,});
+    shortestfoundsound.play();
+  }
+
+  playFinishSound = () => {
+    const finishsound = new Howl ({src: [FinishSound], volume: 0.2,})
+    finishsound.play();
   }
 
   handleMouseDown(row, col) {
@@ -113,14 +198,6 @@ export default class PathfindingVisualizer extends Component {
   handleMouseUp() {
     this.setState({ mouseIsPressed: false });
   }
-
-  playWallSound = () => {
-    const wallSound = new Howl({
-      src: [PlaceWallSound],
-      volume: 1,
-    });
-    wallSound.play();
-  };
 
   animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
@@ -142,10 +219,11 @@ export default class PathfindingVisualizer extends Component {
   animateShortestPath(nodesInShortestPathOrder) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
+        this.playShortestFoundSound1();
         const node = nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-shortest-path";
-      }, 50 * i);
+      }, 100 * i);
     }
   }
 
@@ -160,11 +238,14 @@ export default class PathfindingVisualizer extends Component {
           descriptionElement.classList.remove('shake');
         }, 300);
       }
+      this.playDenySound();
       return;
     }
 
     this.setState({ buttonDisabled: true });
     this.clearGrid(false);
+    this.playStartSound();
+    this.playClickSound(); 
     
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
@@ -187,8 +268,9 @@ export default class PathfindingVisualizer extends Component {
     this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
     
     setTimeout(() => {
+      this.playFinishSound();
       this.setState({ buttonDisabled: false });
-    }, 10 * visitedNodesInOrder.length + 50 * nodesInShortestPathOrder.length);
+    }, 10 * visitedNodesInOrder.length + 100 * nodesInShortestPathOrder.length);
   }
 
   getAlgorithmDescription = (algorithm) => {
@@ -238,13 +320,11 @@ export default class PathfindingVisualizer extends Component {
       // detect outside click
       if (this.state.isDropdownOpen) {
         document.addEventListener('click', this.handleClickOutside);
+        this.playClickSound();
       } else {
         document.removeEventListener('click', this.handleClickOutside);
+        this.playCloseDropdownSound();
       }
-    }
-    const dropdownToggle = document.querySelector('.rw-dropdown-toggle');
-    if (dropdownToggle) {
-      dropdownToggle.removeAttribute('aria-hidden');
     }
   }
 
@@ -269,6 +349,9 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
+      
+      <Howler src={BgMusic} playing={isMusicPlaying} volume={1} loop />
+      <Howler src={RunningSound} playing={this.state.buttonDisabled} loop />
         <div id="controls">
           <div id="dropdown-container">
             <DropdownList
@@ -281,7 +364,9 @@ export default class PathfindingVisualizer extends Component {
             />
           </div>
           <button
-            onClick={() => this.visualize(selectedAlgorithm)}
+            onClick={() => {
+              this.visualize(selectedAlgorithm);
+              }}
             style={{
               backgroundColor: this.state.buttonDisabled ? 'red' : '#87A330',
               cursor: this.state.buttonDisabled ? 'not-allowed' : 'pointer'
@@ -293,6 +378,7 @@ export default class PathfindingVisualizer extends Component {
           <button 
             onClick={() => {
               this.playClearSound();
+              this.playClickSound();
               this.clearGrid(true);
             }}
             style={{
@@ -303,6 +389,7 @@ export default class PathfindingVisualizer extends Component {
           <button 
             onClick={() => {
               this.playClearSound();
+              this.playClickSound();
               this.clearGrid(false);
             }}
             style={{
@@ -310,14 +397,16 @@ export default class PathfindingVisualizer extends Component {
             }}
             disabled = {this.state.buttonDisabled}
           >Clear Path</button>
-          <button onClick={this.toggleMusic}>
+          <button onClick={() => {
+            this.toggleMusic(!this.state.isMusicPlaying);
+            this.playClickSound();
+          }}>
             <img
               src={isMusicPlaying ? MusicOnIcon : MusicOffIcon}
               alt={isMusicPlaying ? 'Music On' : 'Music Off'}
               style={{ width: '24px', height: '24px' }}
             />
           </button>
-          <Howler src={BgMusic} playing={isMusicPlaying} volume={1} loop />
         </div>
         <div id="algo_description_container">
           <div id="algo_description">
