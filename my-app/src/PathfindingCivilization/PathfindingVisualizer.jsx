@@ -1,30 +1,30 @@
 import React, { Component } from "react";
-import Howler from 'react-howler';
-import { Howl } from 'howler';
+import Howler from "react-howler";
+import { Howl } from "howler";
 import DropdownList from "react-widgets/DropdownList";
 import Node from "./Node/Node";
 import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
 import { aStar } from "../algorithms/aStar";
 import "./PathfindingVisualizer.css";
 import "react-widgets/styles.css";
-import './DropdownList.scss';
-import BgMusic from '../assets/sounds/Sweden.mp3';
-import MusicOnIcon from '../assets/musicon.png';
-import MusicOffIcon from '../assets/musicoff.png';
-import PlaceWallSound1 from '../assets/sounds/Stone_dig1.ogg';
-import PlaceWallSound2 from '../assets/sounds/Stone_dig2.ogg';
-import PlaceWallSound3 from '../assets/sounds/Stone_dig2shifted.ogg';
-import PlaceWallSound4 from '../assets/sounds/Stone_dig3.ogg';
-import PlaceWallSound5 from '../assets/sounds/Stone_dig4.ogg';
-import BreakSound from '../assets/sounds/Random_break.ogg';
-import DenySound from '../assets/sounds/Villager_deny1.oga'
-import RunningSound from '../assets/sounds/Beacon_ambient.ogg'
-import StartSound1 from '../assets/sounds/Beacon_power1.ogg'
-import StartSound2 from '../assets/sounds/Beacon_power2.ogg'
-import ClickSound from '../assets/sounds/Click.ogg';
-import CloseDropdownSound from '../assets/sounds/Chest_close2.ogg';
-import ShortestFoundSound1 from '../assets/sounds/Successful_hit.oga';
-import FinishSound from '../assets/sounds/XP_Old.oga';
+import "./DropdownList.scss";
+import BgMusic from "../assets/sounds/Sweden.mp3";
+import MusicOnIcon from "../assets/musicon.png";
+import MusicOffIcon from "../assets/musicoff.png";
+import PlaceWallSound1 from "../assets/sounds/Stone_dig1.ogg";
+import PlaceWallSound2 from "../assets/sounds/Stone_dig2.ogg";
+import PlaceWallSound3 from "../assets/sounds/Stone_dig2shifted.ogg";
+import PlaceWallSound4 from "../assets/sounds/Stone_dig3.ogg";
+import PlaceWallSound5 from "../assets/sounds/Stone_dig4.ogg";
+import BreakSound from "../assets/sounds/Random_break.ogg";
+import DenySound from "../assets/sounds/Villager_deny1.oga";
+import RunningSound from "../assets/sounds/Beacon_ambient.ogg";
+import StartSound1 from "../assets/sounds/Beacon_power1.ogg";
+import StartSound2 from "../assets/sounds/Beacon_power2.ogg";
+import ClickSound from "../assets/sounds/Click.ogg";
+import CloseDropdownSound from "../assets/sounds/Chest_close2.ogg";
+import ShortestFoundSound1 from "../assets/sounds/Successful_hit.oga";
+import FinishSound from "../assets/sounds/XP_Old.oga";
 
 // when adding algos, just search 'algos' for requirements
 
@@ -32,7 +32,7 @@ const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
 const FINISH_NODE_ROW = 10;
 const FINISH_NODE_COL = 35;
-const algorithms = ['Dijkstra', 'A*']; // add options if adding algos
+const algorithms = ["Dijkstra", "A*"]; // add options if adding algos
 
 export default class PathfindingVisualizer extends Component {
   constructor(props) {
@@ -43,14 +43,16 @@ export default class PathfindingVisualizer extends Component {
       buttonDisabled: false,
       selectedAlgorithm: null,
       isDropdownOpen: false,
+      algorithmTimer: null,
+      animationTimer: null,
       isMusicPlaying: false, // dont forget to turn on, was just annoying replaying over and over
     };
   }
 
-    componentDidMount() {
-      const grid = getInitialGrid();
-      this.setState({ grid });
-    }
+  componentDidMount() {
+    const grid = getInitialGrid();
+    this.setState({ grid });
+  }
 
   clearGrid(alsoWall) {
     const { grid } = this.state;
@@ -109,78 +111,81 @@ export default class PathfindingVisualizer extends Component {
       volume: 0.3,
     });
     clearSound.play();
-  }
+  };
 
   playWallSound = () => {
-    const wallSound1 = new Howl({src: [PlaceWallSound1]});
-    const wallSound2 = new Howl({src: [PlaceWallSound2]});
-    const wallSound3 = new Howl({src: [PlaceWallSound3]});
-    const wallSound4 = new Howl({src: [PlaceWallSound4]});
-    const wallSound5 = new Howl({src: [PlaceWallSound5]});
+    const wallSound1 = new Howl({ src: [PlaceWallSound1] });
+    const wallSound2 = new Howl({ src: [PlaceWallSound2] });
+    const wallSound3 = new Howl({ src: [PlaceWallSound3] });
+    const wallSound4 = new Howl({ src: [PlaceWallSound4] });
+    const wallSound5 = new Howl({ src: [PlaceWallSound5] });
 
-    let num = Math.floor(Math.random()* (5 - 1 + 1)) + 1;
+    let num = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
 
-    switch(num)           // random wall sounds
-      {
-        case 1:
-          wallSound1.play();
-          break;
-        case 2:
-          wallSound2.play();
-          break;
-        case 3:
-          wallSound3.play();
-          break;
-        case 4:
-          wallSound4.play();
-          break;
-        case 5:
-          wallSound5.play();
-          break;
-      };
+    switch (
+      num // random wall sounds
+    ) {
+      case 1:
+        wallSound1.play();
+        break;
+      case 2:
+        wallSound2.play();
+        break;
+      case 3:
+        wallSound3.play();
+        break;
+      case 4:
+        wallSound4.play();
+        break;
+      case 5:
+        wallSound5.play();
+        break;
+    }
   };
 
   playDenySound = () => {
-    const denysound = new Howl({src: [DenySound]});
+    const denysound = new Howl({ src: [DenySound] });
     denysound.play();
-  }
+  };
 
   playStartSound = () => {
-    const startsound1 = new Howl({src: [StartSound1]});
-    const startsound2 = new Howl({src: [StartSound2]});
+    const startsound1 = new Howl({ src: [StartSound1] });
+    const startsound2 = new Howl({ src: [StartSound2] });
 
-    let num = Math.floor(Math.random()* (2 - 1 + 1)) + 1;
+    let num = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
 
-    switch(num)
-    {
+    switch (num) {
       case 1:
         startsound1.play();
         break;
       case 2:
         startsound2.play();
         break;
-    };
-  }
+    }
+  };
 
   playClickSound = () => {
-    const clicksound = new Howl({src: [ClickSound]});
+    const clicksound = new Howl({ src: [ClickSound] });
     clicksound.play();
-  }
- 
+  };
+
   playCloseDropdownSound = () => {
-    const closedropdownsound = new Howl ({src: [CloseDropdownSound]})
+    const closedropdownsound = new Howl({ src: [CloseDropdownSound] });
     closedropdownsound.play();
-  }
+  };
 
   playShortestFoundSound1 = () => {
-    const shortestfoundsound = new Howl({src: [ShortestFoundSound1], volume: 0.2,});
+    const shortestfoundsound = new Howl({
+      src: [ShortestFoundSound1],
+      volume: 0.2,
+    });
     shortestfoundsound.play();
-  }
+  };
 
   playFinishSound = () => {
-    const finishsound = new Howl ({src: [FinishSound], volume: 0.2,})
+    const finishsound = new Howl({ src: [FinishSound], volume: 0.2 });
     finishsound.play();
-  }
+  };
 
   handleMouseDown(row, col) {
     const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
@@ -212,7 +217,7 @@ export default class PathfindingVisualizer extends Component {
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
       }, 10 * i);
-      this.setState({isAlgoRunning: false})
+      this.setState({ isAlgoRunning: false });
     }
   }
 
@@ -231,64 +236,85 @@ export default class PathfindingVisualizer extends Component {
     const { selectedAlgorithm } = this.state;
 
     if (!selectedAlgorithm) {
-      const descriptionElement = document.getElementById('algo_description');
+      const descriptionElement = document.getElementById("algo_description");
       if (descriptionElement) {
-        descriptionElement.classList.add('shake');
+        descriptionElement.classList.add("shake");
         setTimeout(() => {
-          descriptionElement.classList.remove('shake');
+          descriptionElement.classList.remove("shake");
         }, 300);
       }
       this.playDenySound();
       return;
     }
 
+    // Start the algorithm timer
+    const algorithmStartTime = Date.now();
+
     this.setState({ buttonDisabled: true });
     this.clearGrid(false);
     this.playStartSound();
-    this.playClickSound(); 
-    
+    this.playClickSound();
+
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     let visitedNodesInOrder;
-    
-    // just add new algos under dijkstra
+
+    // Run the selected algorithm
     switch (algorithm) {
-      case 'A*':
+      case "A*":
         visitedNodesInOrder = aStar(grid, startNode, finishNode);
         break;
-      case 'Dijkstra':
+      case "Dijkstra":
         visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
         break;
       default:
         return;
     }
-  
+
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+
+    // Calculate and store the algorithm timer
+    const algorithmEndTime = Date.now();
+    const algorithmDuration = algorithmEndTime - algorithmStartTime;
+    this.setState({ algorithmTimer: algorithmDuration });
+
     this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
-    
+
+    // Start the animation timer
+    const animationStartTime = Date.now();
+
     setTimeout(() => {
       this.playFinishSound();
       this.setState({ buttonDisabled: false });
+
+      // Calculate and store the animation timer
+      const animationEndTime = Date.now();
+      const animationDuration = animationEndTime - animationStartTime;
+      this.setState({ animationTimer: animationDuration });
     }, 10 * visitedNodesInOrder.length + 100 * nodesInShortestPathOrder.length);
   }
 
   getAlgorithmDescription = (algorithm) => {
-
     // add the brief descriptions here for new algos
     switch (algorithm) {
-      case 'A*':
+      case "A*":
         return (
           <div>
             <h1 class="sign">A* Algorithm</h1>
-            <p class="sign">A* uses heuristics to find the shortest path efficiently.</p>
+            <p class="sign">
+              A* uses heuristics to find the shortest path efficiently.
+            </p>
           </div>
         );
-      case 'Dijkstra':
+      case "Dijkstra":
         return (
           <div>
             <h1 class="sign">Dijkstra's Algorithm</h1>
-            <p class="sign">Dijkstra's algorithm explores all possible paths to find the shortest one.</p>
+            <p class="sign">
+              Dijkstra's algorithm explores all possible paths to find the
+              shortest one.
+            </p>
           </div>
         );
       default:
@@ -299,7 +325,6 @@ export default class PathfindingVisualizer extends Component {
   handleChange = (value) => {
     this.setState({ selectedAlgorithm: value, isDropdownOpen: false });
   };
-  
 
   toggleDropdown = () => {
     this.setState((prevState) => ({
@@ -308,28 +333,27 @@ export default class PathfindingVisualizer extends Component {
   };
 
   handleClickOutside = (event) => {
-    const dropdownList = document.getElementById('dropdown-list');
+    const dropdownList = document.getElementById("dropdown-list");
     if (dropdownList && !dropdownList.contains(event.target)) {
-      this.setState({ isDropdownOpen: false });   // close dropdownlist if clicking outside
+      this.setState({ isDropdownOpen: false }); // close dropdownlist if clicking outside
     }
   };
 
   componentDidUpdate(_, prevState) {
     if (prevState.isDropdownOpen !== this.state.isDropdownOpen) {
-
       // detect outside click
       if (this.state.isDropdownOpen) {
-        document.addEventListener('click', this.handleClickOutside);
+        document.addEventListener("click", this.handleClickOutside);
         this.playClickSound();
       } else {
-        document.removeEventListener('click', this.handleClickOutside);
+        document.removeEventListener("click", this.handleClickOutside);
         this.playCloseDropdownSound();
       }
     }
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside);
+    document.removeEventListener("click", this.handleClickOutside);
   }
 
   toggleMusic = () => {
@@ -341,24 +365,23 @@ export default class PathfindingVisualizer extends Component {
   render() {
     const {
       grid,
-      mouseIsPressed, 
-      selectedAlgorithm, 
-      isDropdownOpen, 
-      isMusicPlaying 
+      mouseIsPressed,
+      selectedAlgorithm,
+      isDropdownOpen,
+      isMusicPlaying,
     } = this.state;
 
     return (
       <>
-      
-      <Howler src={BgMusic} playing={isMusicPlaying} volume={1} loop />
-      <Howler src={RunningSound} playing={this.state.buttonDisabled} loop />
+        <Howler src={BgMusic} playing={isMusicPlaying} volume={1} loop />
+        <Howler src={RunningSound} playing={this.state.buttonDisabled} loop />
         <div id="controls">
           <div id="dropdown-container">
             <DropdownList
               id="dropdown-list"
               data={algorithms}
               value={selectedAlgorithm || "Algorithms:"}
-              onChange={this.handleChange}  
+              onChange={this.handleChange}
               open={isDropdownOpen}
               onToggle={this.toggleDropdown} // toggle dropdown visibility manually
             />
@@ -366,45 +389,51 @@ export default class PathfindingVisualizer extends Component {
           <button
             onClick={() => {
               this.visualize(selectedAlgorithm);
-              }}
-            style={{
-              backgroundColor: this.state.buttonDisabled ? 'red' : '#87A330',
-              cursor: this.state.buttonDisabled ? 'not-allowed' : 'pointer'
             }}
-            disabled = {this.state.buttonDisabled}
+            style={{
+              backgroundColor: this.state.buttonDisabled ? "red" : "#87A330",
+              cursor: this.state.buttonDisabled ? "not-allowed" : "pointer",
+            }}
+            disabled={this.state.buttonDisabled}
           >
             Visualize {selectedAlgorithm}
           </button>
-          <button 
+          <button
             onClick={() => {
               this.playClearSound();
               this.playClickSound();
               this.clearGrid(true);
             }}
             style={{
-              cursor: this.state.buttonDisabled ? 'not-allowed' : 'pointer'
+              cursor: this.state.buttonDisabled ? "not-allowed" : "pointer",
             }}
-            disabled = {this.state.buttonDisabled}
-          >Clear Grid</button>
-          <button 
+            disabled={this.state.buttonDisabled}
+          >
+            Clear Grid
+          </button>
+          <button
             onClick={() => {
               this.playClearSound();
               this.playClickSound();
               this.clearGrid(false);
             }}
             style={{
-              cursor: this.state.buttonDisabled ? 'not-allowed' : 'pointer'
+              cursor: this.state.buttonDisabled ? "not-allowed" : "pointer",
             }}
-            disabled = {this.state.buttonDisabled}
-          >Clear Path</button>
-          <button onClick={() => {
-            this.toggleMusic(!this.state.isMusicPlaying);
-            this.playClickSound();
-          }}>
+            disabled={this.state.buttonDisabled}
+          >
+            Clear Path
+          </button>
+          <button
+            onClick={() => {
+              this.toggleMusic(!this.state.isMusicPlaying);
+              this.playClickSound();
+            }}
+          >
             <img
               src={isMusicPlaying ? MusicOnIcon : MusicOffIcon}
-              alt={isMusicPlaying ? 'Music On' : 'Music Off'}
-              style={{ width: '24px', height: '24px' }}
+              alt={isMusicPlaying ? "Music On" : "Music Off"}
+              style={{ width: "24px", height: "24px" }}
             />
           </button>
         </div>
@@ -456,6 +485,20 @@ export default class PathfindingVisualizer extends Component {
                 </div>
               );
             })}
+            <div id="timer-container">
+              <div id="algorithm-timer">
+                <strong>Algorithm Time: </strong>
+                {this.state.algorithmTimer
+                  ? `${this.state.algorithmTimer} ms`
+                  : "Not started"}
+              </div>
+              <div id="animation-timer">
+                <strong>Animation Time: </strong>
+                {this.state.animationTimer
+                  ? `${this.state.animationTimer} ms`
+                  : "Not started"}
+              </div>
+            </div>
           </div>
         </div>
       </>

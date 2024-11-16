@@ -88,3 +88,21 @@ h1.sign {
 p.sign {
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
+
+#timer-container {
+    position: absolute;
+    bottom: 10px; /* Distance from the bottom */
+    left: 50%;
+    transform: translateX(-50%); /* Center the timer container horizontally */
+    background-color: rgba(0, 0, 0, 0.7); /* Optional: Dark background for readability */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  #algorithm-timer,
+  #animation-timer {
+    margin: 5px 0; /* Space between the timers */
+  }
+  
