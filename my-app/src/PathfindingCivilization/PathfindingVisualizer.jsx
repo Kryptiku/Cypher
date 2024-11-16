@@ -362,6 +362,26 @@ export default class PathfindingVisualizer extends Component {
     }));
   };
 
+  generateRandomMaze = () => {
+    const { grid } = this.state;
+    const newGrid = grid.map((row) =>
+      row.map((node) => {
+        // Ensure the start and finish nodes are not walls
+        if (node.isStart || node.isFinish) {
+          return node;
+        }
+        // Randomly decide if this node should be a wall
+        const isWall = Math.random() < 0.2; // 20% chance for each node to be a wall
+        return {
+          ...node,
+          isWall: isWall,
+        };
+      })
+    );
+
+    this.setState({ grid: newGrid });
+  };
+
   render() {
     const {
       grid,
@@ -375,6 +395,7 @@ export default class PathfindingVisualizer extends Component {
       <>
         <Howler src={BgMusic} playing={isMusicPlaying} volume={1} loop />
         <Howler src={RunningSound} playing={this.state.buttonDisabled} loop />
+
         <div id="controls">
           <div id="dropdown-container">
             <DropdownList
@@ -386,6 +407,8 @@ export default class PathfindingVisualizer extends Component {
               onToggle={this.toggleDropdown} // toggle dropdown visibility manually
             />
           </div>
+
+          {/* visualize algorithm */}
           <button
             onClick={() => {
               this.visualize(selectedAlgorithm);
@@ -398,6 +421,8 @@ export default class PathfindingVisualizer extends Component {
           >
             Visualize {selectedAlgorithm}
           </button>
+
+          {/* clear the grid including walls and path */}
           <button
             onClick={() => {
               this.playClearSound();
@@ -411,6 +436,8 @@ export default class PathfindingVisualizer extends Component {
           >
             Clear Grid
           </button>
+
+          {/* clear the path but keep walls */}
           <button
             onClick={() => {
               this.playClearSound();
@@ -424,6 +451,8 @@ export default class PathfindingVisualizer extends Component {
           >
             Clear Path
           </button>
+
+          {/* toggle music on/off */}
           <button
             onClick={() => {
               this.toggleMusic(!this.state.isMusicPlaying);
@@ -436,12 +465,30 @@ export default class PathfindingVisualizer extends Component {
               style={{ width: "24px", height: "24px" }}
             />
           </button>
+
+          {/* generate random maze */}
+          <button
+            onClick={() => {
+              this.generateRandomMaze();
+              this.playClickSound();
+            }}
+            style={{
+              cursor: this.state.buttonDisabled ? "not-allowed" : "pointer",
+            }}
+            disabled={this.state.buttonDisabled}
+          >
+            Generate Random Maze
+          </button>
         </div>
+
+        {/* Algorithm Description Section */}
         <div id="algo_description_container">
           <div id="algo_description">
             {this.getAlgorithmDescription(selectedAlgorithm)}
           </div>
         </div>
+
+        {/* Grid Rendering Section */}
         <div id="gridcontainer">
           <div className="grid">
             {grid.map((row, rowIdx) => {
@@ -485,6 +532,8 @@ export default class PathfindingVisualizer extends Component {
                 </div>
               );
             })}
+
+            {/* Timers for Algorithm and Animation durations */}
             <div id="timer-container">
               <div id="algorithm-timer">
                 <strong>Algorithm Time: </strong>
