@@ -30,7 +30,9 @@ Discuss the step-by-step process on how to run your project
 
 ## IX. Contributors
 **Front End:** Mirabel, Kevin Hans Aurick S.
+
 **Back End:** Capistrano, Vency Gyro R.
+
 **Project Manager/Fullstack:** Antony, Aldrich Ryan V.
 
 ## X. Acknowledgment
