@@ -7,17 +7,15 @@
     margin: 0px;
     padding: 0px;
 }
-  
-.node-finish {
-    background-color: red;
-}
 
 .node-dijkstra-finish {
-  background-color: blue;
+  background-image: url(../../assets/ChickenDijkstra.png);
+  background-size: 100% 100%;
 }
 
 .node-astar-finish {
-  background-color: black;
+  background-image: url(../../assets/BeefAStar.png);
+  background-size: 100% 100%;
 }
   
 .node-start {

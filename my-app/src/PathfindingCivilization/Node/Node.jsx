@@ -15,7 +15,7 @@ export default class Node extends Component {
       selectedAlgorithm,
     } = this.props;
     const extraClassName = isFinish
-      ? `node-finish ${
+      ? `${
           selectedAlgorithm === "Dijkstra"
             ? "node-dijkstra-finish"
             : selectedAlgorithm === "A*"

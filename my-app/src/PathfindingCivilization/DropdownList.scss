@@ -18,8 +18,13 @@
 
 // entire dropdown textbox thing
 .rw-widget-container {
-    background-color: #6b7e31;
+    background-color: #6b7e31; //darker green
     // box-shadow: 0 0 15px rgba(0, 0, 0, 0.5) inset;
+}
+
+// if parent container has class rw-state-disabled
+.rw-state-disabled:has(> .rw-widget-container) .rw-widget-container {
+  background-color: red;
 }
 
 // the arrow clickable thingy

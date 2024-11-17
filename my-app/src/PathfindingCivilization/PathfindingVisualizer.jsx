@@ -56,9 +56,9 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ grid });
   }
 
-  clearGrid(alsoWall) {
+  clearGrid(alsoWall, selectedAlgorithm) {
     const { grid } = this.state;
-
+  
     const newGrid = grid.map((row) =>
       row.map((node) => {
         const baseNode = {
@@ -70,37 +70,51 @@ export default class PathfindingVisualizer extends Component {
           heuristic: 0,
           fCost: Infinity,
         };
-
+  
         if (!alsoWall && node.isWall) {
           baseNode.isWall = true;
         }
-
+  
         return node.isStart || node.isFinish ? baseNode : baseNode;
       })
     );
-
-    this.setState({ grid: newGrid });
-
+  
+    this.setState({ grid: newGrid, selectedAlgorithm }); // Ensure selectedAlgorithm persists
+  
     newGrid.forEach((row, rowIndex) => {
       row.forEach((node, colIndex) => {
         const nodeElement = document.getElementById(
           `node-${rowIndex}-${colIndex}`
         );
         if (nodeElement) {
+          // Logic to determine the extra class names for each node
+          const extraClassName = node.isFinish
+            ? `node-finish ${
+                selectedAlgorithm === "Dijkstra"
+                  ? "node-dijkstra-finish"
+                  : selectedAlgorithm === "A*"
+                  ? "node-astar-finish"
+                  : ""
+              }`
+            : node.isStart
+            ? "node-start"
+            : node.isWall
+            ? "node-wall"
+            : "";
+  
+          // Apply the class names based on node type and selected algorithm
           if (alsoWall) {
             nodeElement.className = `node ${
-              node.isStart ? "node-start" : node.isFinish ? "node-finish" : ""
+              node.isStart ? "node-start" : node.isFinish ? `node-finish ${
+                selectedAlgorithm === "Dijkstra"
+                  ? "node-dijkstra-finish"
+                  : selectedAlgorithm === "A*"
+                  ? "node-astar-finish"
+                  : ""
+              }` : ""
             }`.trim();
           } else {
-            nodeElement.className = `node ${
-              node.isStart
-                ? "node-start"
-                : node.isFinish
-                ? "node-finish"
-                : node.isWall
-                ? "node-wall"
-                : ""
-            }`.trim();
+            nodeElement.className = `node ${extraClassName}`.trim();
           }
         }
       });
@@ -253,7 +267,7 @@ export default class PathfindingVisualizer extends Component {
     const algorithmStartTime = Date.now();
 
     this.setState({ buttonDisabled: true, algorithmTimer: null, animationTimer: null });
-    this.clearGrid(false);
+    this.clearGrid(false, this.state.selectedAlgorithm);
     this.playStartSound();
     this.playClickSound();
 
@@ -407,6 +421,7 @@ export default class PathfindingVisualizer extends Component {
               onChange={this.handleChange}
               open={isDropdownOpen}
               onToggle={this.toggleDropdown}
+              disabled={this.state.buttonDisabled}
             />
           </div>
 
@@ -429,7 +444,7 @@ export default class PathfindingVisualizer extends Component {
             onClick={() => {
               this.playClearSound();
               this.playClickSound();
-              this.clearGrid(true);
+              this.clearGrid(true, this.state.selectedAlgorithm);
             }}
             style={{
               cursor: this.state.buttonDisabled ? "not-allowed" : "pointer",
@@ -444,7 +459,7 @@ export default class PathfindingVisualizer extends Component {
             onClick={() => {
               this.playClearSound();
               this.playClickSound();
-              this.clearGrid(false);
+              this.clearGrid(false, this.state.selectedAlgorithm);
             }}
             style={{
               cursor: this.state.buttonDisabled ? "not-allowed" : "pointer",
