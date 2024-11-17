@@ -29,6 +29,8 @@ Explain how you ensured the project’s correctness and efficiency
 Discuss the step-by-step process on how to run your project
 
 ## IX. Contributors
-Names of contributors, instructor
+**Front End:** Mirabel, Kevin Hans Aurick S.
+**Back End:** Capistrano, Vency Gyro R.
+**Project Manager/Fullstack:** Antony, Aldrich Ryan V.
 
 ## X. Acknowledgment
