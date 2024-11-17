@@ -1,17 +1,3 @@
-.grid{
-    /* margin-top: 50px; */
-    height: 525px;
-    width: 1275px;
-    position: relative;
-    background-color: #87A330;
-    box-shadow: 0px 0px 30px rgba(0,0,0,0.6) ;
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
 #controls {
     height: 50px;
     display: flex;
@@ -19,6 +5,14 @@
     align-items: center;
     flex-wrap: nowrap;
     gap: 10px;
+}
+
+#dropdown-container {
+    width: 200px;
+    background-color: #87A330;
+    padding: 10px;
+    overflow: visible;
+    box-shadow: 0 11px 10px rgba(0,0,0,0.6)
 }
 
 button {
@@ -31,26 +25,27 @@ button {
     text-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
-#gridcontainer {
-    height: auto ;
-    margin-top: 20px;
-    padding-bottom: 80px;
-    display: flex;
+#algo-description-container {
+    display:flex;
+    width: 100vw;
+    height: auto;
     justify-content: center;
     align-items: center;
 }
 
-#algo_description {
+#algo-description {
     margin-top: 20px;
     padding: 20px;
-    height: 80px;
+    height: auto;
     width: 500px;
     background-image: url(../assets/oaksign.webp);
     background-size: contain;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    background-repeat: repeat;
+    box-shadow: 0 0 20px rgba(0,0, 0, 0.5);
+    transition: height 1s ease;
 }
 
-#algo_description.shake {
+#algo-description.shake {
     animation: shake 0.3s ease;
 }
 
@@ -64,45 +59,63 @@ button {
 }
 
 
-#algo_description_container {
-    display:flex;
-    width: 100vw;
-    height: auto;
+h1.sign {
+    padding: 6px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    text-align: center;
+}
+
+p.sign {
+    padding: 6px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    font-size: 18px;
+}
+
+#grid-container {
+    height: auto ;
+    margin: 20px 0;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#dropdown-container {
-    width: 200px;
+.grid{
+    height: 525px;
+    width: 1275px;
+    position: relative;
     background-color: #87A330;
-    padding: 10px;
-    overflow: visible;
-    box-shadow: 0 11px 10px rgba(0,0,0,0.6)
-}
-
-h1.sign {
-    padding: 6px;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-}
-
-p.sign {
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.6) ;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #timer-container {
-    position: absolute;
-    bottom: 10px; /* Distance from the bottom */
-    left: 50%;
-    transform: translateX(-50%); /* Center the timer container horizontally */
-    background-color: rgba(0, 0, 0, 0.7); /* Optional: Dark background for readability */
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  #algorithm-timer,
-  #animation-timer {
-    margin: 5px 0; /* Space between the timers */
-  }
-  
+    padding: 20px;
+    font-size: 20px;
+    background-image: url(../assets/oaksign.webp);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#algorithm-timer,
+#animation-timer {
+    margin: 0 20px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+#info-container {
+    height: 95vh;
+    width: 90vw;
+    margin: 20px auto;
+    background-color: #87A330;
+    border-radius: 15px;
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.6) ;
+}

@@ -8,6 +8,8 @@ import { aStar } from "../algorithms/aStar";
 import "./PathfindingVisualizer.css";
 import "react-widgets/styles.css";
 import "./DropdownList.scss";
+import DijkstraImage from '../assets/ChickenDijkstra.png';
+import AStarImage from '../assets/BeefAStar.png';
 import BgMusic from "../assets/sounds/Sweden.mp3";
 import MusicOnIcon from "../assets/musicon.png";
 import MusicOffIcon from "../assets/musicoff.png";
@@ -236,7 +238,7 @@ export default class PathfindingVisualizer extends Component {
     const { selectedAlgorithm } = this.state;
 
     if (!selectedAlgorithm) {
-      const descriptionElement = document.getElementById("algo_description");
+      const descriptionElement = document.getElementById("algo-description");
       if (descriptionElement) {
         descriptionElement.classList.add("shake");
         setTimeout(() => {
@@ -250,7 +252,7 @@ export default class PathfindingVisualizer extends Component {
     // Start the algorithm timer
     const algorithmStartTime = Date.now();
 
-    this.setState({ buttonDisabled: true });
+    this.setState({ buttonDisabled: true, algorithmTimer: null, animationTimer: null });
     this.clearGrid(false);
     this.playStartSound();
     this.playClickSound();
@@ -301,6 +303,7 @@ export default class PathfindingVisualizer extends Component {
       case "A*":
         return (
           <div>
+            
             <h1 class="sign">A* Algorithm</h1>
             <p class="sign">
               A* uses heuristics to find the shortest path efficiently.
@@ -312,8 +315,7 @@ export default class PathfindingVisualizer extends Component {
           <div>
             <h1 class="sign">Dijkstra's Algorithm</h1>
             <p class="sign">
-              Dijkstra's algorithm explores all possible paths to find the
-              shortest one.
+              Dijkstra's algorithm finds the shortest paths between nodes in a weighted graph.
             </p>
           </div>
         );
@@ -404,7 +406,7 @@ export default class PathfindingVisualizer extends Component {
               value={selectedAlgorithm || "Algorithms:"}
               onChange={this.handleChange}
               open={isDropdownOpen}
-              onToggle={this.toggleDropdown} // toggle dropdown visibility manually
+              onToggle={this.toggleDropdown}
             />
           </div>
 
@@ -451,7 +453,18 @@ export default class PathfindingVisualizer extends Component {
           >
             Clear Path
           </button>
-
+          <button
+            onClick={() => {
+              this.generateRandomMaze();
+              this.playClickSound();
+            }}
+            style={{
+              cursor: this.state.buttonDisabled ? "not-allowed" : "pointer",
+            }}
+            disabled={this.state.buttonDisabled}
+          >
+            Random Walls
+          </button>
           {/* toggle music on/off */}
           <button
             onClick={() => {
@@ -465,31 +478,13 @@ export default class PathfindingVisualizer extends Component {
               style={{ width: "24px", height: "24px" }}
             />
           </button>
-
-          {/* generate random maze */}
-          <button
-            onClick={() => {
-              this.generateRandomMaze();
-              this.playClickSound();
-            }}
-            style={{
-              cursor: this.state.buttonDisabled ? "not-allowed" : "pointer",
-            }}
-            disabled={this.state.buttonDisabled}
-          >
-            Generate Random Maze
-          </button>
         </div>
-
-        {/* Algorithm Description Section */}
-        <div id="algo_description_container">
-          <div id="algo_description">
+        <div id="algo-description-container">
+          <div id="algo-description">
             {this.getAlgorithmDescription(selectedAlgorithm)}
           </div>
         </div>
-
-        {/* Grid Rendering Section */}
-        <div id="gridcontainer">
+        <div id="grid-container">
           <div className="grid">
             {grid.map((row, rowIdx) => {
               return (
@@ -532,23 +527,28 @@ export default class PathfindingVisualizer extends Component {
                 </div>
               );
             })}
-
-            {/* Timers for Algorithm and Animation durations */}
-            <div id="timer-container">
-              <div id="algorithm-timer">
-                <strong>Algorithm Time: </strong>
-                {this.state.algorithmTimer
-                  ? `${this.state.algorithmTimer} ms`
-                  : "Not started"}
-              </div>
-              <div id="animation-timer">
-                <strong>Animation Time: </strong>
-                {this.state.animationTimer
-                  ? `${this.state.animationTimer} ms`
-                  : "Not started"}
-              </div>
-            </div>
           </div>
+        </div>
+        <div id="timer-container">
+          <div id="algorithm-timer">
+              <strong>Algorithm Time: </strong>
+              <p class="timer">
+              {this.state.algorithmTimer
+              ? `${this.state.algorithmTimer} ms`
+                : "Not started"}
+              </p>
+            </div>
+            <div id="animation-timer">
+              <strong>Animation Time: </strong>
+              <p class="timer">
+                {this.state.animationTimer
+                ? `${this.state.animationTimer / 1000} s`
+                : "Not started"}
+              </p>
+            </div>
+        </div>
+        <div id="info-container">
+
         </div>
       </>
     );

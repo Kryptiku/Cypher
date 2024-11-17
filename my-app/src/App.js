@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function App() {
   const recaptchaRef = useRef();
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(true); // turn to false
 
   const handleCaptchaChange = async (token) => {
     if (token) {
