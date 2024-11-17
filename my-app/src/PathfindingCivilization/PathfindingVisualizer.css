@@ -36,7 +36,7 @@ button {
 #algo-description {
     margin-top: 20px;
     padding: 20px;
-    height: auto;
+    height: 90px;
     width: 500px;
     background-image: url(../assets/oaksign.webp);
     background-size: contain;
@@ -103,6 +103,7 @@ p.sign {
     background-image: url(../assets/oaksign.webp);
     margin-left: auto;
     margin-right: auto;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.6) ;
 }
 
 #algorithm-timer,
@@ -114,7 +115,7 @@ p.sign {
 #info-container {
     height: 95vh;
     width: 90vw;
-    margin: 20px auto;
+    margin: 30px auto;
     background-color: #87A330;
     border-radius: 15px;
     box-shadow: 0px 0px 30px rgba(0,0,0,0.6) ;

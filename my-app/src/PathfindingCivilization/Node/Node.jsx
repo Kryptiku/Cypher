@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import "./Node.css";
 
 export default class Node extends Component {
@@ -13,9 +12,16 @@ export default class Node extends Component {
       onMouseDown,
       onMouseUp,
       onMouseEnter,
+      selectedAlgorithm,
     } = this.props;
     const extraClassName = isFinish
-      ? "node-finish"
+      ? `node-finish ${
+          selectedAlgorithm === "Dijkstra"
+            ? "node-dijkstra-finish"
+            : selectedAlgorithm === "A*"
+            ? "node-astar-finish"
+            : ""
+        }`
       : isStart
       ? "node-start"
       : isWall

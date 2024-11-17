@@ -521,6 +521,7 @@ export default class PathfindingVisualizer extends Component {
                         }}
                         onMouseUp={() => this.handleMouseUp()}
                         row={row}
+                        selectedAlgorithm={this.state.selectedAlgorithm}
                       />
                     );
                   })}

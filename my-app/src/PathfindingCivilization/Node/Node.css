@@ -7,19 +7,17 @@
     margin: 0px;
     padding: 0px;
 }
-/* 
-.node {
-  width: calc(100% / 20);
-  height: calc(100% / 20); 
-  outline: 1px solid rgba(0, 0, 0, 0.17);
-  box-sizing: border-box;
-  display: table-cell;
-  margin: 0;
-  padding: 0;
-} */
   
 .node-finish {
     background-color: red;
+}
+
+.node-dijkstra-finish {
+  background-color: blue;
+}
+
+.node-astar-finish {
+  background-color: black;
 }
   
 .node-start {
