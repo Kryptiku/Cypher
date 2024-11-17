@@ -35,4 +35,6 @@ Discuss the step-by-step process on how to run your project
 
 **Project Manager/Fullstack:** Antony, Aldrich Ryan V.
 
+**Instructor:** Agdon, Fatima Marie P.
+
 ## X. Acknowledgment
