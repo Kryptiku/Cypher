@@ -244,7 +244,7 @@ export default class PathfindingVisualizer extends Component {
         const node = nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-shortest-path";
-      }, 100 * i);
+      }, 75 * i);
     }
   }
 
@@ -308,7 +308,7 @@ export default class PathfindingVisualizer extends Component {
       const animationEndTime = Date.now();
       const animationDuration = animationEndTime - animationStartTime;
       this.setState({ animationTimer: animationDuration });
-    }, 10 * visitedNodesInOrder.length + 100 * nodesInShortestPathOrder.length);
+    }, 10 * visitedNodesInOrder.length + 75 * nodesInShortestPathOrder.length);
   }
 
   getAlgorithmDescription = (algorithm) => {
