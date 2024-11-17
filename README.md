@@ -2,7 +2,7 @@
 ## Beef (A*) or Chicken (Djikstra)?
 
 ## I. Project Overview
-A brief description of the purpose of the project and its key features.
+**Pathfinding Civilization** is a web-based Pathfinding algorithm visualizer. That utilizes **A*** and **Dijkstra** as the choice of algorithms to be visualized. The algorithm visualized will be displayed in a grid that can be modified by the user to include non-travelable walls and be able to compare these two algorithms by path and search method, displayed by animation. The main theme of this project is helping Steve, the Minecraft character, be able get to the chicken (A*), or beef (Dijkstra), and feed his hungry self. Will he go for the chicken, where the path is efficient, and be able to arrive at it much faster? Or will he go for the beef, where it’s the safest, and most thorough approach? The user decides that option.
 
 ## II. System Architecture
 Provide a high-level overview of the system architecture, including
