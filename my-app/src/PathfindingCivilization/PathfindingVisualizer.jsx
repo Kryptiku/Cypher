@@ -404,14 +404,28 @@ export default class PathfindingVisualizer extends Component {
           <>
             <div class="info">
               <div class="content">
-                <h1 class="algo-title">A* Algorithm</h1>
+                <h1 class="algo-title">A* Algorithm <img src={AStarImage} class="algo-title"></img></h1>
                 <p class="info">
-                  A* uses heuristics to find the shortest path efficiently.
+                  A* Search algorithm is one of the best and popular technique used in path-finding and graph traversals.
+                </p>
+                <p class="info">
+                  Informally speaking, A* Search algorithms, unlike other traversal techniques, it has “brains”. What it means is that it is really a smart algorithm which separates it from the other conventional algorithms. This fact is cleared in detail in below sections. 
+                  And it is also worth mentioning that many games and web-based maps use this algorithm to find the shortest path very efficiently (approximation). <br></br><br></br><a href="https://www.geeksforgeeks.org/a-search-algorithm/"><i>- GeeksforGeeks</i></a>
+                </p>
+                <p class="info">
+                  A* uses heuristics, which is like a smart guess. In A*, it's a way to estimate how far the goal is from the current point. For example, on a grid, the heuristic might be the straight-line distance or how many steps it might take to reach the goal. The better the guess, the faster A* can find the shortest path.
+                </p>
+                <p class="info">
+                To code A*, represent the map as a grid or graph, with nodes for positions and edges for possible movements. Use an open set (priority queue) to track nodes to explore, a closed set for visited nodes, and scores (gScore for cost so far and fScore for estimated total cost). Start by adding the starting node to the open set with a cost of 0, and update neighbors iteratively by choosing the node with the lowest fScore. Repeat until the goal is reached or no path exists.
                 </p>
               </div>
             </div>
             <div class="info">
-              
+            <iframe src="https://www.youtube.com/embed/71CEj4gKDnE?si=SnfHqElTbotlOaWw"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
           </div>
         </>
         );
@@ -420,7 +434,7 @@ export default class PathfindingVisualizer extends Component {
           <>
             <div class="info">
               <div class="content">
-                <h1 class="algo-title">Dijkstra Algorithm</h1>
+                <h1 class="algo-title">Dijkstra Algorithm <img src={DijkstraImage} class="algo-title"></img></h1>
                 <p class="info">
                   Dijkstra’s algorithm is a popular algorithm for solving many single-source
                   shortest path problems having non-negative edge weight in the graphs i.e.,
@@ -439,12 +453,20 @@ export default class PathfindingVisualizer extends Component {
                   In an <b>undirected graph</b>, the edges have no direction, and the algorithm can traverse both forward and backward along the edges when searching for the shortest path.
                 </p>
                 <p class="info">
-                  <i>- GeeksforGeeks</i>
+                  <a href="https://www.geeksforgeeks.org/introduction-to-dijkstras-shortest-path-algorithm/"><i>- GeeksforGeeks</i></a>
                 </p>
               </div>
             </div>
             <div class="info">
-              
+              <div class="content">
+                <h1 class="algo-title">How it works:</h1>
+                <iframe
+                  src="https://www.youtube.com/embed/EFg3u_E6eHU"
+                  title="How Dijkstra Algorithm Works - Spanning Tree"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
           </div>
         </>
         );

@@ -119,9 +119,9 @@ p.sign {
 
 #info {
     display: flex;
-    height: 95vh;
+    height: auto;
     width: 90vw;
-    margin: 30px auto; /* center the div */
+    margin: 30px auto;
     background-color: #87A330;
     border-radius: 15px;
     box-shadow: 0px 0px 30px rgba(0,0,0,0.8);
@@ -141,12 +141,17 @@ div.info {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 95vh;
 }
 
 h1.algo-title {
     font-size: 50px;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+img.algo-title {
+    height: 1em;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
 }
 
 p.info {
@@ -157,9 +162,20 @@ p.info {
 }
 
 div.content {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: left;
     align-items: flex-start;
     text-align: center;
+}
+
+iframe {
+    margin: 10px auto;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
 }
