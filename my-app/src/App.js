@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function App() {
   const recaptchaRef = useRef();
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState(true); // turn to false
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false); // turn to false
 
   const handleCaptchaChange = async (token) => {
     if (token) {
@@ -31,8 +31,7 @@ function App() {
           {!isCaptchaVerified ? (
             <div id="captcha">
               <h2>Please complete the CAPTCHA</h2>
-              <ReCAPTCHA
-                id="captchashadow"
+              <ReCAPTCHA id="captchashadow"
                 sitekey={process.env.REACT_APP_SITE_KEY}
                 onChange={handleCaptchaChange}
                 ref={recaptchaRef}

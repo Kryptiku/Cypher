@@ -14,6 +14,7 @@
     font-size: 20px;
     font-weight: bold;
     text-shadow: 0 0 5px rgba(0,0,0,0.5);
+    text-align: center;
 }
 
 // entire dropdown textbox thing
@@ -47,6 +48,7 @@ span.rw-picker-caret {
     cursor: pointer;
     color: #fcfcfc; // font color inside dropdown options
     transition: 0.2s ease;
+    text-align: center;
     transform: scale();
   
     &:hover {

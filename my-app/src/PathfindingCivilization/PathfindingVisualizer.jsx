@@ -47,7 +47,7 @@ export default class PathfindingVisualizer extends Component {
       isDropdownOpen: false,
       algorithmTimer: null,
       animationTimer: null,
-      isMusicPlaying: false, // dont forget to turn on, was just annoying replaying over and over
+      isMusicPlaying: true, // dont forget to turn on, was just annoying replaying over and over
     };
   }
 
@@ -421,11 +421,15 @@ export default class PathfindingVisualizer extends Component {
               </div>
             </div>
             <div class="info">
-            <iframe src="https://www.youtube.com/embed/71CEj4gKDnE?si=SnfHqElTbotlOaWw"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
+              <div class="content">
+                <h1 class="algo-title">How it works:</h1>
+                <iframe class="ytvid"
+                src="https://www.youtube.com/embed/71CEj4gKDnE?si=SnfHqElTbotlOaWw"
+                title="Youtube"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen>
+                </iframe>
+              </div>
           </div>
         </>
         );
@@ -460,7 +464,7 @@ export default class PathfindingVisualizer extends Component {
             <div class="info">
               <div class="content">
                 <h1 class="algo-title">How it works:</h1>
-                <iframe
+                <iframe class="ytvid"
                   src="https://www.youtube.com/embed/EFg3u_E6eHU"
                   title="How Dijkstra Algorithm Works - Spanning Tree"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
