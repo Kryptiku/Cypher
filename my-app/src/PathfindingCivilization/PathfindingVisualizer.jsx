@@ -263,7 +263,7 @@ export default class PathfindingVisualizer extends Component {
       return;
     }
 
-    // Start the algorithm timer
+    // start timer for algo
     const algorithmStartTime = Date.now();
 
     this.setState({ buttonDisabled: true, algorithmTimer: null, animationTimer: null });
@@ -276,7 +276,6 @@ export default class PathfindingVisualizer extends Component {
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     let visitedNodesInOrder;
 
-    // Run the selected algorithm
     switch (algorithm) {
       case "A*":
         visitedNodesInOrder = aStar(grid, startNode, finishNode);
@@ -290,21 +289,21 @@ export default class PathfindingVisualizer extends Component {
 
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
 
-    // Calculate and store the algorithm timer
+    // calculate and store timer for algorithm
     const algorithmEndTime = Date.now();
     const algorithmDuration = algorithmEndTime - algorithmStartTime;
     this.setState({ algorithmTimer: algorithmDuration });
-
+    
     this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
 
-    // Start the animation timer
+    // start timer for animation
     const animationStartTime = Date.now();
 
     setTimeout(() => {
       this.playFinishSound();
       this.setState({ buttonDisabled: false });
 
-      // Calculate and store the animation timer
+      // calculate and store timer for animation
       const animationEndTime = Date.now();
       const animationDuration = animationEndTime - animationStartTime;
       this.setState({ animationTimer: animationDuration });
@@ -317,7 +316,6 @@ export default class PathfindingVisualizer extends Component {
       case "A*":
         return (
           <div>
-            
             <h1 class="sign">A* Algorithm</h1>
             <p class="sign">
               A* uses heuristics to find the shortest path efficiently.
@@ -398,6 +396,67 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ grid: newGrid });
   };
 
+  // add here for more algos
+  getExtendedAlgorithmDescription = (algorithm) => {
+    switch (algorithm) {
+      case "A*":
+        return (
+          <>
+            <div class="info">
+              <div class="content">
+                <h1 class="algo-title">A* Algorithm</h1>
+                <p class="info">
+                  A* uses heuristics to find the shortest path efficiently.
+                </p>
+              </div>
+            </div>
+            <div class="info">
+              
+          </div>
+        </>
+        );
+      case "Dijkstra":
+        return (
+          <>
+            <div class="info">
+              <div class="content">
+                <h1 class="algo-title">Dijkstra Algorithm</h1>
+                <p class="info">
+                  Dijkstra’s algorithm is a popular algorithm for solving many single-source
+                  shortest path problems having non-negative edge weight in the graphs i.e.,
+                  it is to find the shortest distance between two vertices on a graph. It was conceived
+                  by Dutch computer scientist Edsger W. Dijkstra in 1956.
+                </p>
+                <p class="info">
+                  The algorithm maintains a set of visited vertices and a set of unvisited vertices.
+                  It starts at the source vertex and iteratively selects the unvisited vertex with the smallest
+                  tentative distance from the source. It then visits the neighbors of this vertex and updates their
+                  tentative distances if a shorter path is found. This process continues until the destination
+                  vertex is reached, or all reachable vertices have been visited.
+                </p>
+                <p class="info">
+                  In a <b>directed graph</b>, each edge has a direction, indicating the direction of travel between the vertices connected by the edge. In this case, the algorithm follows the direction of the edges when searching for the shortest path. <br></br><br></br>
+                  In an <b>undirected graph</b>, the edges have no direction, and the algorithm can traverse both forward and backward along the edges when searching for the shortest path.
+                </p>
+                <p class="info">
+                  <i>- GeeksforGeeks</i>
+                </p>
+              </div>
+            </div>
+            <div class="info">
+              
+          </div>
+        </>
+        );
+      default:
+        return (
+        <div class="default-info">
+          <h1 class="algo-title">Please choose an algorithm first.</h1>
+        </div>
+        );
+    }
+  };
+
   render() {
     const {
       grid,
@@ -438,7 +497,6 @@ export default class PathfindingVisualizer extends Component {
           >
             Visualize {selectedAlgorithm}
           </button>
-
           {/* clear the grid including walls and path */}
           <button
             onClick={() => {
@@ -564,12 +622,15 @@ export default class PathfindingVisualizer extends Component {
             </div>
         </div>
         <div id="info-container">
-
+          <div id="info">
+                  {this.getExtendedAlgorithmDescription(selectedAlgorithm)}
+          </div>
         </div>
       </>
     );
   }
 }
+
 
 const getInitialGrid = () => {
   const grid = [];

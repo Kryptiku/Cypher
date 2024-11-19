@@ -113,10 +113,53 @@ p.sign {
 }
 
 #info-container {
+    height: 98vh;
+    width: auto;
+}
+
+#info {
+    display: flex;
     height: 95vh;
     width: 90vw;
-    margin: 30px auto;
+    margin: 30px auto; /* center the div */
     background-color: #87A330;
     border-radius: 15px;
-    box-shadow: 0px 0px 30px rgba(0,0,0,0.6) ;
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.8);
+}
+
+div.info {
+    padding: 20px;
+    margin: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.default-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+h1.algo-title {
+    font-size: 50px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+p.info {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: justify;
+    margin-top: 30px;
+    font-size: 28px;
+}
+
+div.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    text-align: center;
 }
