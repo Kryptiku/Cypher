@@ -130,11 +130,11 @@ export default class PathfindingVisualizer extends Component {
   };
 
   playWallSound = () => {
-    const wallSound1 = new Howl({ src: [PlaceWallSound1] });
-    const wallSound2 = new Howl({ src: [PlaceWallSound2] });
-    const wallSound3 = new Howl({ src: [PlaceWallSound3] });
-    const wallSound4 = new Howl({ src: [PlaceWallSound4] });
-    const wallSound5 = new Howl({ src: [PlaceWallSound5] });
+    const wallSound1 = new Howl({ src: [PlaceWallSound1], volume: 0.2 });
+    const wallSound2 = new Howl({ src: [PlaceWallSound2], volume: 0.2 });
+    const wallSound3 = new Howl({ src: [PlaceWallSound3], volume: 0.2});
+    const wallSound4 = new Howl({ src: [PlaceWallSound4], volume: 0.2 });
+    const wallSound5 = new Howl({ src: [PlaceWallSound5], volume: 0.2 });
 
     let num = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
 
@@ -160,13 +160,13 @@ export default class PathfindingVisualizer extends Component {
   };
 
   playDenySound = () => {
-    const denysound = new Howl({ src: [DenySound] });
+    const denysound = new Howl({ src: [DenySound], volume: 0.5 });
     denysound.play();
   };
 
   playStartSound = () => {
-    const startsound1 = new Howl({ src: [StartSound1] });
-    const startsound2 = new Howl({ src: [StartSound2] });
+    const startsound1 = new Howl({ src: [StartSound1], volume: 0.3 });
+    const startsound2 = new Howl({ src: [StartSound2], volume: 0.3  });
 
     let num = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
 
@@ -181,25 +181,25 @@ export default class PathfindingVisualizer extends Component {
   };
 
   playClickSound = () => {
-    const clicksound = new Howl({ src: [ClickSound] });
+    const clicksound = new Howl({ src: [ClickSound], volume: 0.3 });
     clicksound.play();
   };
 
   playCloseDropdownSound = () => {
-    const closedropdownsound = new Howl({ src: [CloseDropdownSound] });
+    const closedropdownsound = new Howl({ src: [CloseDropdownSound], volume: 0.2 });
     closedropdownsound.play();
   };
 
   playShortestFoundSound1 = () => {
     const shortestfoundsound = new Howl({
       src: [ShortestFoundSound1],
-      volume: 0.1,
+      volume: 0.08,
     });
     shortestfoundsound.play();
   };
 
   playFinishSound = () => {
-    const finishsound = new Howl({ src: [FinishSound], volume: 0.2 });
+    const finishsound = new Howl({ src: [FinishSound], volume: 0.1 });
     finishsound.play();
   };
 
@@ -480,7 +480,7 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <Howler src={BgMusic} playing={isMusicPlaying} volume={0.5} loop />
+        <Howler src={BgMusic} playing={isMusicPlaying} volume={0.3} loop />
         <Howler src={RunningSound} playing={this.state.buttonDisabled} loop />
 
         <div id="controls">
