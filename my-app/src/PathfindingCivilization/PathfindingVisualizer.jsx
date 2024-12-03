@@ -193,7 +193,7 @@ export default class PathfindingVisualizer extends Component {
   playShortestFoundSound1 = () => {
     const shortestfoundsound = new Howl({
       src: [ShortestFoundSound1],
-      volume: 0.2,
+      volume: 0.1,
     });
     shortestfoundsound.play();
   };
@@ -406,17 +406,13 @@ export default class PathfindingVisualizer extends Component {
               <div class="content">
                 <h1 class="algo-title">A* Algorithm <img src={AStarImage} class="algo-title"></img></h1>
                 <p class="info">
-                  A* Search algorithm is one of the best and popular technique used in path-finding and graph traversals.
-                </p>
-                <p class="info">
-                  Informally speaking, A* Search algorithms, unlike other traversal techniques, it has “brains”. What it means is that it is really a smart algorithm which separates it from the other conventional algorithms. This fact is cleared in detail in below sections. 
-                  And it is also worth mentioning that many games and web-based maps use this algorithm to find the shortest path very efficiently (approximation). <br></br><br></br><a href="https://www.geeksforgeeks.org/a-search-algorithm/"><i>- GeeksforGeeks</i></a>
-                </p>
-                <p class="info">
-                  A* uses heuristics, which is like a smart guess. In A*, it's a way to estimate how far the goal is from the current point. For example, on a grid, the heuristic might be the straight-line distance or how many steps it might take to reach the goal. The better the guess, the faster A* can find the shortest path.
-                </p>
-                <p class="info">
-                To code A*, represent the map as a grid or graph, with nodes for positions and edges for possible movements. Use an open set (priority queue) to track nodes to explore, a closed set for visited nodes, and scores (gScore for cost so far and fScore for estimated total cost). Start by adding the starting node to the open set with a cost of 0, and update neighbors iteratively by choosing the node with the lowest fScore. Repeat until the goal is reached or no path exists.
+                  A* is a popular pathfinding algorithm widely used in games and mapping applications
+                  due to its efficiency. It combines the actual cost to reach a node (gScore) with an estimated
+                  cost to the goal (heuristic) to prioritize exploration. The heuristic is a smart guess,
+                  such as the straight-line distance or the number of steps to the target, helping the algorithm
+                  focus on the most promising paths. Using a priority queue to track nodes and iteratively updating
+                  costs, A* explores nodes with the lowest total estimated cost (fScore) until it finds the shortest
+                  path or determines no path exists.
                 </p>
               </div>
             </div>
@@ -440,25 +436,15 @@ export default class PathfindingVisualizer extends Component {
               <div class="content">
                 <h1 class="algo-title">Dijkstra Algorithm <img src={DijkstraImage} class="algo-title"></img></h1>
                 <p class="info">
-                  Dijkstra’s algorithm is a popular algorithm for solving many single-source
-                  shortest path problems having non-negative edge weight in the graphs i.e.,
-                  it is to find the shortest distance between two vertices on a graph. It was conceived
-                  by Dutch computer scientist Edsger W. Dijkstra in 1956.
+                  Dijkstra’s algorithm, developed by Edsger W. Dijkstra in 1956, is a widely-used method for finding
+                  the shortest path from a single source vertex to other vertices in a graph with non-negative edge weights.
+                  It works by maintaining two sets of vertices: visited and unvisited. Starting from the source vertex,
+                  it iteratively selects the unvisited vertex with the smallest tentative distance, updates the distances
+                  of its neighbors if shorter paths are found, and repeats this until the target vertex is reached or all
+                  reachable vertices are processed. In directed graphs, it follows edge directions, while in undirected graphs,
+                  edges can be traversed in both directions.
                 </p>
-                <p class="info">
-                  The algorithm maintains a set of visited vertices and a set of unvisited vertices.
-                  It starts at the source vertex and iteratively selects the unvisited vertex with the smallest
-                  tentative distance from the source. It then visits the neighbors of this vertex and updates their
-                  tentative distances if a shorter path is found. This process continues until the destination
-                  vertex is reached, or all reachable vertices have been visited.
-                </p>
-                <p class="info">
-                  In a <b>directed graph</b>, each edge has a direction, indicating the direction of travel between the vertices connected by the edge. In this case, the algorithm follows the direction of the edges when searching for the shortest path. <br></br><br></br>
-                  In an <b>undirected graph</b>, the edges have no direction, and the algorithm can traverse both forward and backward along the edges when searching for the shortest path.
-                </p>
-                <p class="info">
-                  <a href="https://www.geeksforgeeks.org/introduction-to-dijkstras-shortest-path-algorithm/"><i>- GeeksforGeeks</i></a>
-                </p>
+                
               </div>
             </div>
             <div class="info">
@@ -494,7 +480,7 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <Howler src={BgMusic} playing={isMusicPlaying} volume={1} loop />
+        <Howler src={BgMusic} playing={isMusicPlaying} volume={0.5} loop />
         <Howler src={RunningSound} playing={this.state.buttonDisabled} loop />
 
         <div id="controls">

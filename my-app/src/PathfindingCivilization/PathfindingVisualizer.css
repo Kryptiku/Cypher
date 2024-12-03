@@ -67,8 +67,8 @@ h1.sign {
 
 p.sign {
     padding: 6px;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-    font-size: 18px;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+    font-size: 1.35em;
     text-align: center;
 }
 
@@ -100,7 +100,8 @@ p.sign {
     align-items: center;
     color: white;
     padding: 20px;
-    font-size: 20px;
+    text-align: center;
+    font-size: 1.25em;
     background-image: url(../assets/oaksign.webp);
     margin-left: auto;
     margin-right: auto;
@@ -114,7 +115,7 @@ p.sign {
 }
 
 #info-container {
-    height: 98vh;
+    height: 84vh;
     width: auto;
 }
 
