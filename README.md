@@ -23,9 +23,11 @@ key components and their interactions.
   * An uninformed algorithm that finds the shortest path from a starting node to all other nodes by exploring all possible paths in order of increasing cost, ensuring the shortest path is found.
     
 ## 🔐 Security Mechanisms
-Discuss the security measures implemented in the project.
+* The implementation of a human verification system API known as **Captcha** to differentiate between real users and automated users, such as bots.
+  
+* By limiting the options for the user to only placing blocks and button presses, this significantly reduces the risk close 0% of having invalid inputs that could potentially be used as an exploit on the web application.
 
-## VI. Development Process and Design Decisions
+## 🤔 Development Process and Design Decisions
 Explain how computer science theory influenced your development
 decisions.
 
@@ -33,7 +35,34 @@ decisions.
 Explain how you ensured the project’s correctness and efficiency
 
 ## 🏃🏿‍♂️‍➡️ How to Run the Project
-Discuss the step-by-step process on how to run your project
+* Prerequisites:
+  * [Node.js](https://nodejs.org/en)
+1. Clone the repository
+   ```bash
+   git clone https://github.com/Kryptiku/Pathfinding_Civilization.git
+   ```
+   
+2. Open project in IDE of choice and open the **git bash** terminal and run the following commands:
+   ```bash
+   cd my-app
+   ```
+
+   ```bash
+   npm i
+   ```
+
+   ```bash
+   node server.js
+   ```
+
+3. On a new **git bash** terminal run the following commands:
+   ```bash
+   cd my-app
+   ```
+
+   ```bash
+   npm start
+   ```
 
 ## 🧑‍💻 Contributors
 **Front End:** [Mirabel, Kevin Hans Aurick S.](https://github.com/kebinmirabel)
