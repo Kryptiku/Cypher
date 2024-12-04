@@ -37,12 +37,18 @@ Explain how you ensured the project’s correctness and efficiency
 ## 🏃🏿‍♂️‍➡️ How to Run the Project
 * Prerequisites:
   * [Node.js](https://nodejs.org/en)
+  * You will also need to provide your own API key for the captcha to work.
+    * It should be in a `.env` file at the root directory of the `my-app` folder
+    * Format for the `.env` file is:
+      * `REACT_APP_SITE_KEY= '6LfyVXIqAAAAAOlwRkh5uZrJ4tVxG6PyA1V00rTW'
+SITE_SECRET='6LfyVXIqAAAAABIjg1Gcjr3FQw5KgFQGOkRpTxHd'`
+
 1. Clone the repository
    ```bash
    git clone https://github.com/Kryptiku/Pathfinding_Civilization.git
    ```
    
-2. Open project in IDE of choice and open the **git bash** terminal and run the following commands:
+2. Open project in IDE of choice and open the `git bash` terminal and run the following commands:
    ```bash
    cd my-app
    ```
@@ -55,7 +61,7 @@ Explain how you ensured the project’s correctness and efficiency
    node server.js
    ```
 
-3. On a new **git bash** terminal run the following commands:
+3. On a new `git bash` terminal run the following commands:
    ```bash
    cd my-app
    ```
@@ -64,11 +70,11 @@ Explain how you ensured the project’s correctness and efficiency
    npm start
    ```
 
-4. Now that the app is running you can start by placing blocks on the grid using your mouse or select **Random Walls** option to generate a random set of walls.
+4. Now that the app is running you can start by placing blocks on the grid using your mouse or select `Random Walls` option to generate a random set of walls.
 
 5. Select your algorithm on the top-left drop-down.
 
-6. Hit **Visualize** and watch the magic.
+6. Hit `Visualize` and watch the magic.
 
 ## 🧑‍💻 Contributors
 **Front End:** [Mirabel, Kevin Hans Aurick S.](https://github.com/kebinmirabel)
