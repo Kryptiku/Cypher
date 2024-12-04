@@ -35,7 +35,34 @@ decisions.
 Explain how you ensured the project’s correctness and efficiency
 
 ## 🏃🏿‍♂️‍➡️ How to Run the Project
-Discuss the step-by-step process on how to run your project
+* Prerequisites:
+  * [Node.js](https://nodejs.org/en)
+1. Clone the repository
+   ```bash
+   git clone https://github.com/Kryptiku/Pathfinding_Civilization.git
+   ```
+   
+2. Open project in IDE of choice and open the **git bash** terminal and run the following commands:
+   ```bash
+   cd my-app
+   ```
+
+   ```bash
+   npm i
+   ```
+
+   ```bash
+   node server.js
+   ```
+
+3. On a new **git bash** terminal run the following commands:
+   ```bash
+   cd my-app
+   ```
+
+   ```bash
+   npm start
+   ```
 
 ## 🧑‍💻 Contributors
 **Front End:** [Mirabel, Kevin Hans Aurick S.](https://github.com/kebinmirabel)
