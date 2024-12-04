@@ -23,7 +23,7 @@ key components and their interactions.
   * An uninformed algorithm that finds the shortest path from a starting node to all other nodes by exploring all possible paths in order of increasing cost, ensuring the shortest path is found.
     
 ## 🔐 Security Mechanisms
-* The implementation of a human verification system API known as **Captcha** to differentiate between real users and automated users, such as bots.
+* The implementation of a human verification system API known as `Captcha` to differentiate between real users and automated users, such as bots.
   
 * By limiting the options for the user to only placing blocks and button presses, this significantly reduces the risk close 0% of having invalid inputs that could potentially be used as an exploit on the web application.
 
