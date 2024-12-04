@@ -28,12 +28,46 @@ key components and their interactions.
 * By limiting the options for the user to only placing blocks and button presses, this significantly reduces the risk close 0% of having invalid inputs that could potentially be used as an exploit on the web application.
 
 ## 🤔 Development Process and Design Decisions
-Explain how computer science theory influenced your development
-decisions.
+Concept and Theme
+
+The web app is designed around a Minecraft theme, leveraging its iconic blocky aesthetic and engaging elements. This involves mimicking the appearance of Minecraft’s environment with a grid-based map, block types, and assets like obsidian, raw chicken, raw beef and oak signs. The goal is to provide users with an intuitive and visually engaging way to explore pathfinding algorithms while remaining true to the theme.
+
+* Development Phases
+  * Planning and Prototyping:
+    * Wireframe the layout and determine core functionality.
+    * Create a basic grid layout using React.
+    
+    * UI/UX Design:
+      * Integrate Minecraft textures to match the target aesthetic.
+      
+    * Algorithm Implementation:
+      * Develop and test pathfinding algorithms in the backend using reusable functions for each algorithm.
+      * Abstract common code into utilities to avoid redundancy and follow the DRY (Don't Repeat Yourself) principle.
+
+    * Integration:
+      * Combine frontend interactivity with backend processing and implement the relevant APIs.
+
+    * Launch and Iteration:
+      * Deploy the app and gather user feedback.
+      * Iterate based on feedback, adding features like advanced algorithms or enhanced visual effects.
+
+* Challenges and Decisions
+  * Maintaining Performance:
+    * Balancing high-quality visuals with efficient algorithm execution.
+    * Refactoring code to reduce duplication and ensure efficient updates across related components.
+
+  * Minecraft Aesthetic:
+    * Ensuring Minecraft textures do not overwhelm the usability of the app.
+    * Using shared styling utilities for consistent aesthetic elements.
 
 ## ✅ Correctness and Efficiency
-Explain how you ensured the project’s correctness and efficiency
 
+**Ensuring the Correctness:**
+* Inputs are strictly regulated, only providing the user what is necessary in order to properly interact with the web application.
+
+**Ensuring the Efficiency:**
+  * By adhering to the DRY principle and integrating Minecraft’s immersive aesthetic with engaging pathfinding visualizations, the app becomes both a fun and educational tool.
+    
 ## 🏃🏿‍♂️‍➡️ How to Run the Project
 * Prerequisites:
   * [Node.js](https://nodejs.org/en)
