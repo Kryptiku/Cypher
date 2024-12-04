@@ -64,6 +64,12 @@ Explain how you ensured the project’s correctness and efficiency
    npm start
    ```
 
+4. Now that the app is running you can start by placing blocks on the grid using your mouse or select **Random Walls** option to generate a random set of walls.
+
+5. Select your algorithm on the top-left drop-down.
+
+6. Hit **Visualize** and watch the magic.
+
 ## 🧑‍💻 Contributors
 **Front End:** [Mirabel, Kevin Hans Aurick S.](https://github.com/kebinmirabel)
 
