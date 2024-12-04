@@ -89,3 +89,9 @@
       background-color: rgb(255, 254, 106);
     }
 }
+
+.node-active-steve {
+  background-image: url('../../assets/start_steve.webp');
+  background-size: cover;
+  background-position: center;
+}

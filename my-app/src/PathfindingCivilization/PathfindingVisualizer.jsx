@@ -221,6 +221,12 @@ export default class PathfindingVisualizer extends Component {
   }
 
   animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) {
+    // Find the start node and add 'node-active-steve'
+    const startNode = document.querySelector(".node-start");
+    if (startNode) {
+      startNode.classList.add("node-active-steve");
+    }
+  
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
@@ -236,17 +242,37 @@ export default class PathfindingVisualizer extends Component {
       this.setState({ isAlgoRunning: false });
     }
   }
+  
 
   animateShortestPath(nodesInShortestPathOrder) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         this.playShortestFoundSound1();
+  
+        // Get the current node
         const node = nodesInShortestPathOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-shortest-path";
-      }, 75 * i);
+        const nodeElement = document.getElementById(`node-${node.row}-${node.col}`);
+  
+        // Add 'node-active-steve' class to show the character
+        nodeElement.classList.add("node-active-steve");
+  
+        // If this is not the last node, remove 'node-active-steve' after 0.1 seconds
+        if (i < nodesInShortestPathOrder.length - 1) {
+          setTimeout(() => {
+            nodeElement.classList.remove("node-active-steve");
+  
+            // Add 'node-shortest-path' class to mark the path
+            nodeElement.className = "node node-shortest-path";
+          }, 100); // 0.1 seconds
+        } else {
+          // Keep 'node-active-steve' on the last node
+          nodeElement.classList.add("node-shortest-path");
+        }
+      }, 75 * i); // Delay each step by 75ms
     }
   }
+  
+  
 
   visualize(algorithm) {
     const { selectedAlgorithm } = this.state;
@@ -568,7 +594,8 @@ export default class PathfindingVisualizer extends Component {
           <div id="algo-description">
             {this.getAlgorithmDescription(selectedAlgorithm)}
           </div>
-          <div id="timer-container">
+        </div>
+        <div id="timer-container">
           <div id="algorithm-timer">
               <strong>Algorithm Time: </strong>
               <p class="timer">
@@ -586,8 +613,6 @@ export default class PathfindingVisualizer extends Component {
               </p>
             </div>
         </div>
-        </div>
-        
         <div id="grid-container">
           <div className="grid">
             {grid.map((row, rowIdx) => {
