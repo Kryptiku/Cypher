@@ -568,7 +568,26 @@ export default class PathfindingVisualizer extends Component {
           <div id="algo-description">
             {this.getAlgorithmDescription(selectedAlgorithm)}
           </div>
+          <div id="timer-container">
+          <div id="algorithm-timer">
+              <strong>Algorithm Time: </strong>
+              <p class="timer">
+              {this.state.algorithmTimer
+              ? `${this.state.algorithmTimer} ms`
+                : "Not started"}
+              </p>
+            </div>
+            <div id="animation-timer">
+              <strong>Animation Time: </strong>
+              <p class="timer">
+                {this.state.animationTimer
+                ? `${this.state.animationTimer / 1000} s`
+                : "Not started"}
+              </p>
+            </div>
         </div>
+        </div>
+        
         <div id="grid-container">
           <div className="grid">
             {grid.map((row, rowIdx) => {
@@ -615,24 +634,7 @@ export default class PathfindingVisualizer extends Component {
             })}
           </div>
         </div>
-        <div id="timer-container">
-          <div id="algorithm-timer">
-              <strong>Algorithm Time: </strong>
-              <p class="timer">
-              {this.state.algorithmTimer
-              ? `${this.state.algorithmTimer} ms`
-                : "Not started"}
-              </p>
-            </div>
-            <div id="animation-timer">
-              <strong>Animation Time: </strong>
-              <p class="timer">
-                {this.state.animationTimer
-                ? `${this.state.animationTimer / 1000} s`
-                : "Not started"}
-              </p>
-            </div>
-        </div>
+        
         <div id="info-container">
           <div id="info">
                   {this.getExtendedAlgorithmDescription(selectedAlgorithm)}
