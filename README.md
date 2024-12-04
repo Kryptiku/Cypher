@@ -37,19 +37,19 @@ The web app is designed around a Minecraft theme, leveraging its iconic blocky a
     * Wireframe the layout and determine core functionality.
     * Create a basic grid layout using React.
     
-    * UI/UX Design:
-      * Integrate Minecraft textures to match the target aesthetic.
+  * UI/UX Design:
+    * Integrate Minecraft textures to match the target aesthetic.
       
-    * Algorithm Implementation:
-      * Develop and test pathfinding algorithms in the backend using reusable functions for each algorithm.
-      * Abstract common code into utilities to avoid redundancy and follow the DRY (Don't Repeat Yourself) principle.
+  * Algorithm Implementation:
+    * Develop and test pathfinding algorithms in the backend using reusable functions for each algorithm.
+    * Abstract common code into utilities to avoid redundancy and follow the DRY (Don't Repeat Yourself) principle.
 
-    * Integration:
-      * Combine frontend interactivity with backend processing and implement the relevant APIs.
+  * Integration:
+    * Combine frontend interactivity with backend processing and implement the relevant APIs.
 
-    * Launch and Iteration:
-      * Deploy the app and gather user feedback.
-      * Iterate based on feedback, adding features like advanced algorithms or enhanced visual effects.
+  * Launch and Iteration:
+    * Deploy the app and gather user feedback.
+    * Iterate based on feedback, adding features like advanced algorithms or enhanced visual effects.
 
 * Challenges and Decisions
   * Maintaining Performance:
