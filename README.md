@@ -5,8 +5,24 @@
 **Pathfinding Civilization** is a web-based Pathfinding algorithm visualizer. That utilizes **A*** and **Dijkstra** as the choice of algorithms to be visualized. The algorithm visualized will be displayed in a grid that can be modified by the user to include non-travelable walls and be able to compare these two algorithms by path and search method, displayed by animation. The main theme of this project is helping Steve, the Minecraft character, be able get to the chicken (A*), or beef (Dijkstra), and feed his hungry self. Will he go for the chicken, where the path is efficient, and be able to arrive at it much faster? Or will he go for the beef, where it’s the safest, and most thorough approach? The user decides that option.
 
 ## 🏗️ System Architecture
-Provide a high-level overview of the system architecture, including
-key components and their interactions.
+**Key Components**
+* **Frontend:**
+  * `SCSS`
+    * Short for Sassy Cascading Style Sheets, is a preprocessor scripting language that extends CSS (Cascading Style Sheets) with additional features.
+  * `React-Howler`
+    * This is a simple, accessible audio player built using Reactjs and Howlerjs.
+  * `React-widgets`
+    * A high quality suite of React inputs.
+   
+*  **Backend:**
+  * `Axios`
+    * Promise-based HTTP client used to make HTTP requests. In this code, it is used to send a POST request to the Google reCAPTCHA API to verify the CAPTCHA token. The request includes the secret key and the response token, and it checks the verification status based on the response.
+
+  * `Express`
+    * A web framework for Node.js that simplifies the creation of web servers and handling of routes. In this code, express is used to create an API server. It listens for POST requests at the /verify-captcha endpoint, processes incoming JSON requests, and returns the appropriate responses based on the CAPTCHA verification result.
+
+  * `Cors`
+    * A middleware used to enable Cross-Origin Resource Sharing (CORS), allowing requests from different origins (e.g., a front-end application hosted on a different server). In this code, cors() is used to enable CORS support, ensuring that the server can accept requests from client applications running on different domains.
 
 ## 🤓 Applied Computer Science Concept
 * **Graph Theory**
