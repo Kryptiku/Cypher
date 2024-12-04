@@ -40,8 +40,8 @@ Explain how you ensured the project’s correctness and efficiency
   * You will also need to provide your own API key for the captcha to work.
     * It should be in a `.env` file at the root directory of the `my-app` folder
     * Format for the `.env` file is:
-      * `REACT_APP_SITE_KEY= '6LfyVXIqAAAAAOlwRkh5uZrJ4tVxG6PyA1V00rTW'
-SITE_SECRET='6LfyVXIqAAAAABIjg1Gcjr3FQw5KgFQGOkRpTxHd'`
+      * `REACT_APP_SITE_KEY= '6LfyVXIqAAAAAOlwRkh5uZrJ4tVxG6PyA1V00rTW'`
+`SITE_SECRET='6LfyVXIqAAAAABIjg1Gcjr3FQw5KgFQGOkRpTxHd'`
 
 1. Clone the repository
    ```bash
