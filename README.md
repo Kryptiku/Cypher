@@ -37,12 +37,6 @@ Explain how you ensured the project’s correctness and efficiency
 ## 🏃🏿‍♂️‍➡️ How to Run the Project
 * Prerequisites:
   * [Node.js](https://nodejs.org/en)
-  * You will also need to provide your own API key for the captcha to work.
-    * It should be in a `.env` file at the root directory of the `my-app` folder
-    * You can get the site key and secret key from the [Recaptcha V2](google.com) website
-    * Format for the `.env` file is:
-      * `REACT_APP_SITE_KEY= '#Insert Site Key#'`
-`SITE_SECRET='#Insert Secret Key#'`
 
 1. Clone the repository
    ```bash
